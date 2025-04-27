@@ -1,0 +1,16 @@
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\bin\Debug\net9.0\RadioShop.BLL.deps.json
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\bin\Debug\net9.0\RadioShop.BLL.dll
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\bin\Debug\net9.0\RadioShop.BLL.pdb
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\bin\Debug\net9.0\RadioShop.DAL.dll
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\bin\Debug\net9.0\RadioShop.DAL.pdb
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\RadioShop.BLL.csproj.AssemblyReference.cache
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\RadioShop.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\RadioShop.BLL.AssemblyInfoInputs.cache
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\RadioShop.BLL.AssemblyInfo.cs
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\RadioShop.BLL.csproj.CoreCompileInputs.cache
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\RadioShop.BLL.sourcelink.json
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\RadioSho.C65E2D00.Up2Date
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\RadioShop.BLL.dll
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\refint\RadioShop.BLL.dll
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\RadioShop.BLL.pdb
+C:\Users\zergu\Source\Repos\RadioShop\RadioShop.BLL\obj\Debug\net9.0\ref\RadioShop.BLL.dll

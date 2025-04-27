@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioShop.WEB", "RadioShop\RadioShop.WEB.csproj", "{087B395D-91B7-4CE7-9109-C76A57CDA31A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioShop.DAL", "RadioShop.DAL\RadioShop.DAL.csproj", "{49CDB6DB-9373-4CD9-BB14-966001C55E10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioShop.BLL", "RadioShop.BLL\RadioShop.BLL.csproj", "{FACBA32A-BB55-4E89-B787-1C6EB7447A2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{087B395D-91B7-4CE7-9109-C76A57CDA31A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{087B395D-91B7-4CE7-9109-C76A57CDA31A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{087B395D-91B7-4CE7-9109-C76A57CDA31A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{087B395D-91B7-4CE7-9109-C76A57CDA31A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49CDB6DB-9373-4CD9-BB14-966001C55E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49CDB6DB-9373-4CD9-BB14-966001C55E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49CDB6DB-9373-4CD9-BB14-966001C55E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49CDB6DB-9373-4CD9-BB14-966001C55E10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FACBA32A-BB55-4E89-B787-1C6EB7447A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FACBA32A-BB55-4E89-B787-1C6EB7447A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FACBA32A-BB55-4E89-B787-1C6EB7447A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FACBA32A-BB55-4E89-B787-1C6EB7447A2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
