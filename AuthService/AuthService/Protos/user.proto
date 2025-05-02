@@ -1,0 +1,36 @@
+﻿syntax = "proto3";
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "AuthService";
+
+package Radioshop;
+
+message UserGrpcRequest {
+	string id = 1;
+}
+
+message UserGrpcListRequest {
+	repeated string ids = 1;
+}
+
+message UserGrpcResponse {
+	string id = 1;
+	string userName = 2;
+	string firstName = 3;
+	string lastName = 4;	
+	google.protobuf.StringValue middleName = 5;
+	string email = 6;
+}
+
+message UserGrpcResponseList { repeated UserGrpcResponse users = 1; }
+
+message UserExistsGrpcResponse { bool exists = 1; }
+
+message UserExistsGrpcResponseList { repeated string ids = 1; }
+
+service UserGrpc {
+	rpc GetUser (UserGrpcRequest) returns (UserGrpcResponse);
+	rpc GetUserList (UserGrpcListRequest) returns (UserGrpcResponseList);
+	rpc UserExists (UserGrpcRequest) returns (UserExistsGrpcResponse);
+	rpc UserExistsList (UserGrpcListRequest) returns (UserExistsGrpcResponseList);
+}

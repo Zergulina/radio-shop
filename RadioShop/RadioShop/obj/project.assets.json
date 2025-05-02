@@ -4237,19 +4237,19 @@
   },
   "packageFolders": {
     "C:\\Users\\zergu\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\zergu\\repos\\radio-shop\\RadioShop\\RadioShop\\RadioShop.WEB.csproj",
+      "projectUniqueName": "D:\\Курсачи\\Веб 6 семестр\\radio-shop\\RadioShop\\RadioShop\\RadioShop.WEB.csproj",
       "projectName": "RadioShop.WEB",
-      "projectPath": "C:\\Users\\zergu\\repos\\radio-shop\\RadioShop\\RadioShop\\RadioShop.WEB.csproj",
+      "projectPath": "D:\\Курсачи\\Веб 6 семестр\\radio-shop\\RadioShop\\RadioShop\\RadioShop.WEB.csproj",
       "packagesPath": "C:\\Users\\zergu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\zergu\\repos\\radio-shop\\RadioShop\\RadioShop\\obj\\",
+      "outputPath": "D:\\Курсачи\\Веб 6 семестр\\radio-shop\\RadioShop\\RadioShop\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\zergu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4267,8 +4267,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\zergu\\repos\\radio-shop\\RadioShop\\RadioShop.BLL\\RadioShop.BLL.csproj": {
-              "projectPath": "C:\\Users\\zergu\\repos\\radio-shop\\RadioShop\\RadioShop.BLL\\RadioShop.BLL.csproj"
+            "D:\\Курсачи\\Веб 6 семестр\\radio-shop\\RadioShop\\RadioShop.BLL\\RadioShop.BLL.csproj": {
+              "projectPath": "D:\\Курсачи\\Веб 6 семестр\\radio-shop\\RadioShop\\RadioShop.BLL\\RadioShop.BLL.csproj"
             }
           }
         }

@@ -45,11 +45,11 @@ var app = builder.Build();
 
 await app.Services.CreateScope().ServiceProvider.InitializeAppAsync(builder.Configuration);
 
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
 

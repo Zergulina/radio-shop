@@ -1,32 +1,78 @@
 version: '3.0.0'
 services:
-  web:
-    build: ./RadioShop
-    container_name: ${WEB_HOST}
-    ports:
-      # - "${WEB_PORT}:${WEB_PORT}"
-      - "80:80"
-    environment:
-      # - ConnectionStrings__DefaultConnection="Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
-      # - JWT__SigningKey="${JWT_SECRET_KEY}"
-      - PORT=${WEB_PORT}
-      - HOST=${WEB_HOST}
-      # - ASPNETCORE_URLS=http://localhost:8080
-      - HTTP_PORTS=8080
-    depends_on:
-      db:
-        condition: service_healthy
-  db:
-    image: postgres:17
-    container_name: ${DB_HOST}
-    environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+  api-gateway:
+      build: ./ApiGateway
+      container_name: ${API_GATEWAY_HOST}
+      ports:
+        - ${API_GATEWAY_PORT}:${API_GATEWAY_PORT}
+      environment:
+        - HTTP_PORTS=${API_GATEWAY_PORT}
+        - AUTH_HOST=${AUTH_HOST}
+        - AUTH_PORT=${AUTH_PORT}
+        - HOST=${API_GATEWAY_HOST}
+        - PORT=${API_GATEWAY_PORT}
+      depends_on:
+        - auth-service
+        - catalog-service
+  auth-service:
+    build: ./AuthService
+    container_name: ${AUTH_HOST}
     expose:
-      - ${DB_PORT}
+      - ${AUTH_PORT}
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=${AUTH_DB_HOST};Port=${AUTH_DB_PORT};Database=${AUTH_DB_NAME};Username=${AUTH_DB_USER};Password=${AUTH_DB_PASSWORD}
+      - JWT__SigningKey=${JWT_SECRET_KEY}
+      - HTTP_PORTS=${AUTH_PORT}
+      - Admin__UserName=${ADMIN_USER_NAME}
+      - Admin__Password=${ADMIN_PASSWORD}
+      - Admin__FirstName=${ADMIN_FIRST_NAME}
+      - Admin__LastName=${ADMIN_LAST_NAME}
+      - Admin__MiddleName=${ADMIN_MIDDLE_NAME}
+      - Admin__Email=${ADMIN_EMAIL}
+      - JWT__Issuer=https://localhost:7040
+      - JWT__Audience=https://localhost:7040
+    depends_on:
+      auth-db:
+        condition: service_healthy
+  auth-db:
+    image: postgres:17
+    container_name: ${AUTH_DB_HOST}
+    environment:
+      - POSTGRES_USER=${AUTH_DB_USER}
+      - POSTGRES_PASSWORD=${AUTH_DB_PASSWORD}
+      - POSTGRES_DB=${AUTH_DB_NAME}
+    expose:
+      - ${AUTH_DB_PORT}
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
+      test: [ "CMD-SHELL", "pg_isready -U ${AUTH_DB_USER} -d ${AUTH_DB_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  catalog-service:
+    build: ./CatalogService
+    container_name: ${CATALOG_HOST}
+    expose:
+      - ${CATALOG_PORT}
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=${CATALOG_DB_HOST};Port=${CATALOG_DB_PORT};Database=${CATALOG_DB_NAME};Username=${CATALOG_DB_USER};Password=${CATALOG_DB_PASSWORD}
+      - JWT__SigningKey=${JWT_SECRET_KEY}
+      - HTTP_PORTS=${CATALOG_PORT}
+      - JWT__Issuer=https://localhost:7040
+      - JWT__Audience=https://localhost:7040
+    depends_on:
+      catalog-db:
+        condition: service_healthy
+  catalog-db:
+    image: postgres:17
+    container_name: ${CATALOG_DB_HOST}
+    environment:
+      - POSTGRES_USER=${CATALOG_DB_USER}
+      - POSTGRES_PASSWORD=${CATALOG_DB_PASSWORD}
+      - POSTGRES_DB=${CATALOG_DB_NAME}
+    expose:
+      - ${CATALOG_DB_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${CATALOG_DB_USER} -d ${CATALOG_DB_NAME}" ]
       interval: 5s
       timeout: 5s
       retries: 5

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioShop.WEB", "RadioShop\RadioShop.WEB.csproj", "{087B395D-91B7-4CE7-9109-C76A57CDA31A}"
 EndProject
@@ -27,8 +27,25 @@ Global
 		{FACBA32A-BB55-4E89-B787-1C6EB7447A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FACBA32A-BB55-4E89-B787-1C6EB7447A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FACBA32A-BB55-4E89-B787-1C6EB7447A2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C929AB9B-2FF6-4670-9990-8EDDB96FF088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C929AB9B-2FF6-4670-9990-8EDDB96FF088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C929AB9B-2FF6-4670-9990-8EDDB96FF088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C929AB9B-2FF6-4670-9990-8EDDB96FF088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B1FFA2E-79DA-4B60-A9EC-D838664BB0E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B1FFA2E-79DA-4B60-A9EC-D838664BB0E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B1FFA2E-79DA-4B60-A9EC-D838664BB0E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B1FFA2E-79DA-4B60-A9EC-D838664BB0E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCBA4B52-7E23-46A0-940F-337E893E41FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBA4B52-7E23-46A0-940F-337E893E41FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBA4B52-7E23-46A0-940F-337E893E41FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCBA4B52-7E23-46A0-940F-337E893E41FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C929AB9B-2FF6-4670-9990-8EDDB96FF088} = {54C27F26-71CB-9721-02CF-9E5332C2F895}
+		{9B1FFA2E-79DA-4B60-A9EC-D838664BB0E5} = {54C27F26-71CB-9721-02CF-9E5332C2F895}
+		{DCBA4B52-7E23-46A0-940F-337E893E41FA} = {54C27F26-71CB-9721-02CF-9E5332C2F895}
 	EndGlobalSection
 EndGlobal
