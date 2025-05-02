@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RadioShop.WEB")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0315472097ef075fb41f5c29bec4e1347aa7a914")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6ff8e18967bd75337ffba21b2084a3b658081df")]
 [assembly: System.Reflection.AssemblyProductAttribute("RadioShop.WEB")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RadioShop.WEB")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
