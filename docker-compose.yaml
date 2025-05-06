@@ -14,6 +14,7 @@ services:
       depends_on:
         - auth-service
         - catalog-service
+        - cart-service
   auth-service:
     build: ./AuthService
     container_name: ${AUTH_HOST}
@@ -23,6 +24,7 @@ services:
       - ConnectionStrings__DefaultConnection=Host=${AUTH_DB_HOST};Port=${AUTH_DB_PORT};Database=${AUTH_DB_NAME};Username=${AUTH_DB_USER};Password=${AUTH_DB_PASSWORD}
       - JWT__SigningKey=${JWT_SECRET_KEY}
       - HTTP_PORTS=${AUTH_PORT}
+      - HTTP_2_PORTS=${AUTH_PORT_HTTP_2}
       - Admin__UserName=${ADMIN_USER_NAME}
       - Admin__Password=${ADMIN_PASSWORD}
       - Admin__FirstName=${ADMIN_FIRST_NAME}
@@ -41,6 +43,8 @@ services:
       - POSTGRES_USER=${AUTH_DB_USER}
       - POSTGRES_PASSWORD=${AUTH_DB_PASSWORD}
       - POSTGRES_DB=${AUTH_DB_NAME}
+    ports:
+      - 5435:${AUTH_DB_PORT}
     expose:
       - ${AUTH_DB_PORT}
     healthcheck:
@@ -59,6 +63,7 @@ services:
       - HTTP_PORTS=${CATALOG_PORT}
       - JWT__Issuer=https://localhost:7040
       - JWT__Audience=https://localhost:7040
+      - PgPublication__Name=catalog_publication
     depends_on:
       catalog-db:
         condition: service_healthy
@@ -76,3 +81,110 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    volumes:
+      - ./catalog-db/postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+  cart-service:
+    build: ./CartService
+    container_name: ${CART_HOST}
+    expose:
+      - ${CART_PORT}
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=${CART_DB_HOST};Port=${CART_DB_PORT};Database=${CART_DB_NAME};Username=${CART_DB_USER};Password=${CART_DB_PASSWORD}
+      - ConnectionStrings__UserServiceGrpcConnection=http://${AUTH_HOST}:${AUTH_PORT_HTTP_2}
+      - JWT__SigningKey=${JWT_SECRET_KEY}
+      - HTTP_PORTS=${CART_PORT}
+      - JWT__Issuer=https://localhost:7040
+      - JWT__Audience=https://localhost:7040
+      - PgSubscription__Name=catalog_subscription
+      - PgSubscription__Connection=dbname=${CATALOG_DB_NAME} host=${CATALOG_DB_HOST} user=${CATALOG_DB_USER} password=${CATALOG_DB_PASSWORD}
+      - PgSubscription__PublicationName=catalog_publication
+    depends_on:
+      cart-db:
+        condition: service_healthy
+  cart-db:
+    image: postgres:17
+    container_name: ${CART_DB_HOST}
+    environment:
+      - POSTGRES_USER=${CART_DB_USER}
+      - POSTGRES_PASSWORD=${CART_DB_PASSWORD}
+      - POSTGRES_DB=${CART_DB_NAME}
+    expose: 
+      - ${CART_DB_PORT}
+    ports:
+      - 8765:${CART_DB_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${CART_DB_USER} -d ${CART_DB_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - catalog-service
+  # zookeeper:
+  #   image: confluentinc/cp-zookeeper:7.0.1
+  #   environment:
+  #     ZOOKEEPER_CLIENT_PORT: 2181
+  # kafka:
+  #   image: confluentinc/cp-kafka:7.0.1
+  #   depends_on:
+  #     - zookeeper
+  #   environment:
+  #     KAFKA_BROKER_ID: 1
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+  #     KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  #     KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+  #     KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+  #     KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+  #   ports:
+  #     - "29092:29092"
+  # kafka-connect:
+  #     image: confluentinc/cp-kafka-connect:7.4.0
+  #     depends_on:
+  #       - kafka
+  #       - catalog-service
+  #       - cart-service
+  #     environment:
+  #       CONNECT_BOOTSTRAP_SERVERS: kafka:9092
+  #       CONNECT_GROUP_ID: connect-cluster
+  #       CONNECT_CONFIG_STORAGE_TOPIC: connect-configs
+  #       CONNECT_OFFSET_STORAGE_TOPIC: connect-offsets
+  #       CONNECT_STATUS_STORAGE_TOPIC: connect-statuses
+  #       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+  #       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+  #       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+  #       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"  
+  #       KAFKA_DEFAULT_REPLICATION_FACTOR: "1"         
+  #       CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+  #       CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+  #       CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+  #       CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+  #       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+  #       DB_HOST: ${CATALOG_DB_HOST}
+  #       DB_PORT: ${CATALOG_DB_PORT}
+  #       DB_USER: ${CATALOG_DB_USER}
+  #       DB_PASSWORD: ${CATALOG_DB_PASSWORD}
+  #       DB_NAME: ${CATALOG_DB_NAME}
+  #       TARGET_DB_HOST: ${CART_DB_HOST}
+  #       TARGET_DB_PORT: ${CART_DB_PORT}
+  #       TARGET_DB_USER: ${CART_DB_USER}
+  #       TARGET_DB_PASSWORD: ${CART_DB_PASSWORD}
+  #       TARGET_DB_NAME: ${CART_DB_NAME}
+  #       CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
+  #     volumes:
+  #       - ./connectors:/etc/kafka-connect/connectors
+  #     ports:
+  #       - "8083:8083"
+  #     command:
+  #       - bash
+  #       - -c
+  #       - |
+  #         # Установка плагинов
+  #         confluent-hub install --no-prompt debezium/debezium-connector-postgresql:2.3.0
+  #         confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.7.0
+  #         # Запуск с ожиданием готовности Kafka
+  #         echo "Waiting for Kafka to be ready..."
+  #         cub kafka-ready -b kafka:9092 1 60
+  #         /etc/confluent/docker/run

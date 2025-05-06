@@ -1,10 +1,23 @@
 using Microsoft.OpenApi.Models;
 using AuthService;
 using AuthService.GrpcServices;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddEnvironmentVariables();
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(builder.Configuration["HTTP_2_PORTS"]), listenOptions =>
+    {
+        listenOptions.Protocols = HttpProtocols.Http2;
+    });
+    options.ListenAnyIP(int.Parse(builder.Configuration["HTTP_PORTS"]), listenOptions =>
+    {
+        listenOptions.Protocols = HttpProtocols.Http1;
+    });
+});
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
@@ -53,8 +66,6 @@ await app.Services.CreateScope().ServiceProvider.InitializeAppAsync(builder.Conf
     app.UseSwagger();
     app.UseSwaggerUI();
 // }
-
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
 
 app.UseHttpsRedirection();
 

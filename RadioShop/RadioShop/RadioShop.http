@@ -1,6 +1,0 @@
-@RadioShop_HostAddress = http://localhost:5119
-
-GET {{RadioShop_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

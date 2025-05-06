@@ -19,7 +19,7 @@ namespace CartService.BLL.Mappers
                 Description = model.Description,
                 PriceRuble = model.PriceRuble,
                 PriceKopek = model.PriceKopek,
-                Rating = (byte)(model.TotalRating / model.RatingAmount),
+                Rating = (byte)(model.RatingAmount > 0 ? model.TotalRating / model.RatingAmount : 0),
                 OrderAmount = model.OrderAmount,
                 Tags = model.Tags.Select(x => x.ToDto()).ToList(),
                 ImageId = model.ImageId,

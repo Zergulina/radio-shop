@@ -19,6 +19,7 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Gateway");
     c.SwaggerEndpoint("/users/swagger/v1/swagger.json", "Users Service");
     c.SwaggerEndpoint("/catalog/swagger/v1/swagger.json", "Catalog Service");
+    c.SwaggerEndpoint("/cart/swagger/v1/swagger.json", "Cart Service");
 });
 
 await app.UseOcelot();

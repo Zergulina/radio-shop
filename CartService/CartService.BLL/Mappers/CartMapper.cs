@@ -1,5 +1,4 @@
-﻿using AuthService;
-using CartService.BLL.Dtos;
+﻿using CartService.BLL.Dtos;
 using CartService.DAL.Models;
 using System;
 using System.Collections.Generic;

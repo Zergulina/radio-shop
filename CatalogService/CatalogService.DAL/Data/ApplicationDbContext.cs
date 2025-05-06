@@ -10,7 +10,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Tag> Tags{ get; set; }
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
-        Database.EnsureCreated();
+
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

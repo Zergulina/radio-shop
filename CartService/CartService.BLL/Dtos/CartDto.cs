@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CartService.BLL.Dtos
 {
-    internal class CartDto
+    public class CartDto
     {
         public string UserId { get; set; }
         public UserDto? User { get; set; }

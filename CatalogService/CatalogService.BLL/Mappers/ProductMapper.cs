@@ -15,7 +15,7 @@ internal static class ProductMapper
                 Description = model.Description,
                 PriceRuble = model.PriceRuble,
                 PriceKopek = model.PriceKopek,
-                Rating = (byte)(model.TotalRating / model.RatingAmount),
+                Rating = (byte)(model.RatingAmount > 0 ? model.TotalRating / model.RatingAmount : 0),
                 Tags = model.Tags.Select(x => x.ToDto()).ToList(),
             };
         }

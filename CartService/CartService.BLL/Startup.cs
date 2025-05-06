@@ -1,5 +1,4 @@
-﻿using AuthService;
-using CartService.BLL.Interfaces;
+﻿using CartService.BLL.Interfaces;
 using CartService.BLL.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +11,7 @@ namespace CartService.BLL
         {
             services.AddGrpcClient<UserGrpc.UserGrpcClient>(options =>
             {
-                options.Address = new Uri(configuration["UserServiceGrpcConnection"]);
+                options.Address = new Uri(configuration.GetConnectionString("UserServiceGrpcConnection"));
             });
 
             services.AddScoped<ICartService, Services.CartService>();

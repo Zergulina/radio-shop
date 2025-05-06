@@ -28,11 +28,11 @@ internal class ProductRepository : IProductRepository
             }
             if (minRating != null)
             {
-                products = products.Where(x => x.TotalRating / x.RatingAmount >= minRating);
+                products = products.Where(x => (x.RatingAmount > 0 ? x.TotalRating / x.RatingAmount : 0) >= minRating);
             }
             if (maxRating != null)
             {
-                products = products.Where(x => x.TotalRating / x.RatingAmount <= maxRating);
+                products = products.Where(x => (x.RatingAmount > 0 ? x.TotalRating / x.RatingAmount : 0) <= maxRating);
             }
             if (name != null)
             {
@@ -85,11 +85,11 @@ internal class ProductRepository : IProductRepository
             }
             if (minRating != null)
             {
-                products = products.Where(x => x.TotalRating / x.RatingAmount >= minRating);
+                products = products.Where(x => (x.RatingAmount > 0 ? x.TotalRating / x.RatingAmount : 0) >= minRating);
             }
             if (maxRating != null)
             {
-                products = products.Where(x => x.TotalRating / x.RatingAmount <= maxRating);
+                products = products.Where(x => (x.RatingAmount > 0 ? x.TotalRating / x.RatingAmount : 0) <= maxRating);
             }
             if (name != null)
             {
@@ -108,7 +108,7 @@ internal class ProductRepository : IProductRepository
                 }
                 if (string.Equals(sortBy, "rating", StringComparison.OrdinalIgnoreCase))
                 {
-                    products = isDescending ? products.OrderByDescending(x => x.TotalRating / x.RatingAmount) : products.OrderBy(x => x.TotalRating / x.RatingAmount);
+                    products = isDescending ? products.OrderByDescending(x => (x.RatingAmount > 0 ? x.TotalRating / x.RatingAmount : 0)) : products.OrderBy(x => x.TotalRating / x.RatingAmount);
                 }
                 if (string.Equals(sortBy, "name", StringComparison.OrdinalIgnoreCase))
                 {

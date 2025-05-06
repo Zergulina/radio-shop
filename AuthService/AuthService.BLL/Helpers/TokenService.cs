@@ -27,7 +27,7 @@ internal class TokenService : ITokenService
 
             var claimsIdentity = new ClaimsIdentity(claims, "Token");
             claimsIdentity.AddClaims(roles.Select(role => new Claim(ClaimTypes.Role, role)));
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserName));
+            claimsIdentity.AddClaim(new Claim("UserId", user.Id));
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature);
 

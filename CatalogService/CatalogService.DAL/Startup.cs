@@ -20,6 +20,8 @@ public static class Startup
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IProductTagRepository, ProductTagRepository>();
 
+        services.AddHostedService<DatabaseInitializer>();
+
         return services;
     }
 }

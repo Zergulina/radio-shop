@@ -16,12 +16,13 @@ namespace CartService.DAL.Data
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Product>().HasMany(x => x.Tags).WithMany(x => x.Products).UsingEntity(x => x.ToTable("ProductTag"));
             modelBuilder.Entity<Cart>().HasKey(x => new { x.ProductId, x.UserId });
         }
     }

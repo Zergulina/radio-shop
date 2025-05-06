@@ -18,15 +18,14 @@ namespace CartService.DAL.Repositories
             _context = context;
         }
 
-        async public Task<Cart?> CreateAsync(Cart cart)
+        async public Task<Cart> CreateAsync(Cart cart)
         {
-            if (!_context.Products.Any(x => x.Id == cart.ProductId))
-            {
-                return null;
-            }
             await _context.Carts.AddAsync(cart);
             await _context.SaveChangesAsync();
-            return cart;
+            return await _context.Carts
+                .Include(x => x.Product)
+                .ThenInclude(x => x.Tags)
+                .FirstAsync(x => x.ProductId == cart.ProductId && x.UserId.Equals(cart.UserId));
         }
 
         public async Task<bool> DeleteAsync(string userId, int productId)

@@ -17,6 +17,9 @@ namespace CartService.DAL
             });
 
             services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddHostedService<DatabaseInitializer>();
 
             return services;
         }
