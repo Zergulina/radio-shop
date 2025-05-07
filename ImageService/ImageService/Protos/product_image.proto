@@ -1,0 +1,29 @@
+﻿syntax = "proto3";
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "ImageService";
+
+package Radioshop;
+
+message ProductImageGrpcDeleteRequest {
+	string id = 1;
+}
+
+message ProductImageGrpcCreateRequest {
+	bytes imageData = 1;
+	string imageExtention = 2;
+}
+
+message ProductImageGrpcDeleteResponse {
+	bool success = 1;
+}
+
+message ProductImageGrpcCreateResponse {
+	bool success = 1;
+	string id = 2;
+}
+
+service ProductImageGrpc {
+	rpc Create (ProductImageGrpcCreateRequest) returns (ProductImageGrpcCreateResponse);
+	rpc Delete (ProductImageGrpcDeleteRequest) returns (ProductImageGrpcDeleteResponse);
+}

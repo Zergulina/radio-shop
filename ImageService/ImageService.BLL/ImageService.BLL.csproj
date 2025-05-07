@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ImageService.DAL\ImageService.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

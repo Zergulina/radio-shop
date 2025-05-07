@@ -1,6 +1,7 @@
 ﻿using Minio;
 using Microsoft.Extensions.Configuration;
 using Minio.DataModel.Args;
+using System.Net.Mime;
 
 namespace ImageService.DAL.Data
 {
@@ -36,15 +37,20 @@ namespace ImageService.DAL.Data
                 .WithContentType(contentType));
         }
 
-        public async Task<Stream> GetFileAsync(string bucketName, string objectName)
+        public async Task<(Stream, string)> GetFileAsync(string bucketName, string objectName)
         {
             var memoryStream = new MemoryStream();
+            var contentType = string.Empty;
             await _minioClient.GetObjectAsync(new GetObjectArgs()
                 .WithBucket(bucketName)
                 .WithObject(objectName)
-                .WithCallbackStream(stream => stream.CopyTo(memoryStream)));
-            memoryStream.Position = 0;
-            return memoryStream;
+                .WithCallbackStream(stream => {
+                    stream.CopyTo(memoryStream);
+                    memoryStream.Position = 0;
+
+                    contentType = stream.GetType().GetProperty("ContentType")?.GetValue(stream) as string;
+                }));
+            return (memoryStream, contentType);
         }
 
         public async Task DeleteFileAsync(string bucketName, string objectName)
