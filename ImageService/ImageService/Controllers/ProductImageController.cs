@@ -14,10 +14,18 @@ namespace ImageService.Controllers
         }
 
         [Route("{imageId}")]
-        public async IActionResult GetById([FromRoute] string imageId)
+        public async Task<IActionResult> GetById([FromRoute] string imageId)
         {
             var file = await _productImageService.GetByIdAsync(imageId);
-            return File(file.ImageData, file.)
+            var extention = "application/octet-stream";
+            extention = file.ImageType switch
+            {
+                "image/jpeg" => ".jpeg",
+                "image/png" => ".png",
+                "image/gif" => ".gif",
+                _ => extention
+            };
+            return File(file.ImageData, file.ImageType, $"{imageId}.{extention}");
         }
     }
 }
