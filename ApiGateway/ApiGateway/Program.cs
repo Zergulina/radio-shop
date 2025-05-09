@@ -20,6 +20,7 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/users/swagger/v1/swagger.json", "Users Service");
     c.SwaggerEndpoint("/catalog/swagger/v1/swagger.json", "Catalog Service");
     c.SwaggerEndpoint("/cart/swagger/v1/swagger.json", "Cart Service");
+    c.SwaggerEndpoint("/images/swagger/v1/swagger.json", "Image Service");
 });
 
 await app.UseOcelot();

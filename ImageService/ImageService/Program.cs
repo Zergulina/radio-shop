@@ -81,5 +81,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapGrpcService<ProductImageService>();
 app.MapControllers();
 app.Run();

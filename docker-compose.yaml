@@ -15,6 +15,7 @@ services:
         - auth-service
         - catalog-service
         - cart-service
+        - image-service
   auth-service:
     build: ./AuthService
     container_name: ${AUTH_HOST}
@@ -59,6 +60,7 @@ services:
       - ${CATALOG_PORT}
     environment:
       - ConnectionStrings__DefaultConnection=Host=${CATALOG_DB_HOST};Port=${CATALOG_DB_PORT};Database=${CATALOG_DB_NAME};Username=${CATALOG_DB_USER};Password=${CATALOG_DB_PASSWORD}
+      - ConnectionStrings__ProductImageServiceGrpcConnection=http://${IMAGE_HOST}:${IMAGE_PORT_HTTP_2}
       - JWT__SigningKey=${JWT_SECRET_KEY}
       - HTTP_PORTS=${CATALOG_PORT}
       - JWT__Issuer=https://localhost:7040
@@ -67,6 +69,8 @@ services:
     depends_on:
       catalog-db:
         condition: service_healthy
+      image-service:
+        condition: service_started
   catalog-db:
     image: postgres:17
     container_name: ${CATALOG_DB_HOST}
@@ -120,71 +124,42 @@ services:
       retries: 5
     depends_on:
       - catalog-service
-  # zookeeper:
-  #   image: confluentinc/cp-zookeeper:7.0.1
-  #   environment:
-  #     ZOOKEEPER_CLIENT_PORT: 2181
-  # kafka:
-  #   image: confluentinc/cp-kafka:7.0.1
-  #   depends_on:
-  #     - zookeeper
-  #   environment:
-  #     KAFKA_BROKER_ID: 1
-  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-  #     KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
-  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  #     KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-  #     KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-  #     KAFKA_DEFAULT_REPLICATION_FACTOR: 1
-  #   ports:
-  #     - "29092:29092"
-  # kafka-connect:
-  #     image: confluentinc/cp-kafka-connect:7.4.0
-  #     depends_on:
-  #       - kafka
-  #       - catalog-service
-  #       - cart-service
-  #     environment:
-  #       CONNECT_BOOTSTRAP_SERVERS: kafka:9092
-  #       CONNECT_GROUP_ID: connect-cluster
-  #       CONNECT_CONFIG_STORAGE_TOPIC: connect-configs
-  #       CONNECT_OFFSET_STORAGE_TOPIC: connect-offsets
-  #       CONNECT_STATUS_STORAGE_TOPIC: connect-statuses
-  #       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
-  #       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
-  #       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
-  #       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"  
-  #       KAFKA_DEFAULT_REPLICATION_FACTOR: "1"         
-  #       CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-  #       CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-  #       CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
-  #       CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
-  #       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
-  #       DB_HOST: ${CATALOG_DB_HOST}
-  #       DB_PORT: ${CATALOG_DB_PORT}
-  #       DB_USER: ${CATALOG_DB_USER}
-  #       DB_PASSWORD: ${CATALOG_DB_PASSWORD}
-  #       DB_NAME: ${CATALOG_DB_NAME}
-  #       TARGET_DB_HOST: ${CART_DB_HOST}
-  #       TARGET_DB_PORT: ${CART_DB_PORT}
-  #       TARGET_DB_USER: ${CART_DB_USER}
-  #       TARGET_DB_PASSWORD: ${CART_DB_PASSWORD}
-  #       TARGET_DB_NAME: ${CART_DB_NAME}
-  #       CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
-  #     volumes:
-  #       - ./connectors:/etc/kafka-connect/connectors
-  #     ports:
-  #       - "8083:8083"
-  #     command:
-  #       - bash
-  #       - -c
-  #       - |
-  #         # Установка плагинов
-  #         confluent-hub install --no-prompt debezium/debezium-connector-postgresql:2.3.0
-  #         confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.7.0
-  #         # Запуск с ожиданием готовности Kafka
-  #         echo "Waiting for Kafka to be ready..."
-  #         cub kafka-ready -b kafka:9092 1 60
-  #         /etc/confluent/docker/run
+  image-service:
+    build: ./ImageService
+    container_name: ${IMAGE_HOST}
+    expose:
+      - ${IMAGE_PORT}
+    environment:
+      - Minio__Endpoint=${MINIO_HOST}:${MINIO_PORT}
+      - Minio__AccessKey=${MINIO_ACCESS_KEY}
+      - Minio__SecretKey=${MINIO_SECRET_KEY}
+      - JWT__SigningKey=${JWT_SECRET_KEY}
+      - HTTP_PORTS=${IMAGE_PORT}
+      - HTTP_2_PORTS=${IMAGE_PORT_HTTP_2}
+      - JWT__Issuer=https://localhost:7040
+      - JWT__Audience=https://localhost:7040
+    depends_on:
+      minio:
+        condition: service_healthy
+  minio:
+    image: quay.io/minio/minio
+    command: server /data --console-address "${MINIO_HOST}:${MINIO_CONSOLE_PORT}"
+    container_name: ${MINIO_HOST}
+    expose:
+      - ${MINIO_PORT}
+    ports:
+      - "${MINIO_CONSOLE_PORT}:${MINIO_CONSOLE_PORT}"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
+    volumes:
+      - ./minio-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${MINIO_PORT}/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  minio-data:

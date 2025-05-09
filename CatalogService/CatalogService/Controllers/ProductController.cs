@@ -59,7 +59,7 @@ namespace CatalogService.Controllers
         
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody] CreateProductRequestDto createRequestDto)
+        public async Task<IActionResult> Create([FromForm] CreateProductRequestDto createRequestDto)
         {
             if (!ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace CatalogService.Controllers
             }
 
 
-            return Ok((await _productService.CreateAsync(createRequestDto.ToDto())).ToResponseDto());
+            return Ok((await _productService.CreateAsync(createRequestDto.ToDto(), createRequestDto.ToImageDto())).ToResponseDto());
         }
 
         [HttpPut("{id:int}")]
@@ -81,7 +81,7 @@ namespace CatalogService.Controllers
 
             try
             {
-                return Ok((await _productService.CreateAsync(updateRequestDto.ToDto())).ToResponseDto());
+                return Ok((await _productService.UpdateAsync(id, updateRequestDto.ToDto())).ToResponseDto());
             }
             catch (NotFoundException ex)
             {

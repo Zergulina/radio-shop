@@ -13,4 +13,5 @@ public class CreateProductRequestDto
         public long PriceRuble { get; set; }
         [Required]
         public byte PriceKopek { get; set; }
+        public IFormFile? ImageFile { get; set; }
 }

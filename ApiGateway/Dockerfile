@@ -15,6 +15,4 @@ WORKDIR /app
 COPY --from=build /app/publish .
 COPY --from=build src/ApiGateway/ocelot.json .
 
-EXPOSE ${PORT}
-
 ENTRYPOINT ["dotnet", "ApiGateway.dll"]

@@ -12,5 +12,5 @@ public class ProductDto
     public byte Rating { get; set; } = 0;
     public long OrderAmount { get; set; } = 0;
     public List<TagDto> Tags { get; set; } = new List<TagDto>();
-    public int? ImageId { get; set; } = null;
+    public string? ImageId { get; set; } = null;
 }

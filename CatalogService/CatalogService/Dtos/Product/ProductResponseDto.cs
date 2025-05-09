@@ -12,4 +12,5 @@ public class ProductResponseDto
         public byte PriceKopek { get; set; }
         public byte Rating { get; set; }
         public List<TagResponseDto> Tags { get; set; } = new List<TagResponseDto>();
+        public string? ImageId {  get; set; }
 }

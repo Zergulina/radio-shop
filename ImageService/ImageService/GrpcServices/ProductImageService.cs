@@ -1,5 +1,7 @@
-﻿using Grpc.Core;
+﻿using Google.Protobuf;
+using Grpc.Core;
 using ImageService.BLL.Interfaces;
+using System.Net.Mime;
 
 namespace ImageService.GrpcServices
 {
@@ -15,7 +17,15 @@ namespace ImageService.GrpcServices
         {
             try
             {
-                string id = await _productImageService.CreateAsync(new BLL.Dtos.ImageDto { ImageData = new MemoryStream(request.ImageData.ToByteArray()), ImageType = request.ImageExtention });
+                var contentType = "application/octet-stream";
+                contentType = request.ImageExtention switch
+                {
+                    ".jpg" or ".jpeg" => "image/jpeg",
+                    ".png" => "image/png",
+                    ".gif" => "image/gif",
+                    _ => contentType
+                };
+                string id = await _productImageService.CreateAsync(new BLL.Dtos.ImageDto { ImageData = new MemoryStream(request.ImageData.ToByteArray()), ImageType = contentType });
                 return new ProductImageGrpcCreateResponse { Success = true, Id = id };
             }
             catch
@@ -26,12 +36,16 @@ namespace ImageService.GrpcServices
 
         public async override Task<ProductImageGrpcDeleteResponse> Delete(ProductImageGrpcDeleteRequest request, ServerCallContext context)
         {
-            try {
+            try
+            {
                 await _productImageService.DeleteAsync(request.Id);
                 return new ProductImageGrpcDeleteResponse { Success = true };
-            } catch
+            }
+            catch
             {
                 return new ProductImageGrpcDeleteResponse { Success = false };
+                throw;
+            }
         }
     }
 }

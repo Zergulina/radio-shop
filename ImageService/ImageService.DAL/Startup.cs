@@ -20,7 +20,7 @@ namespace ImageService.DAL
         {
             var minioContext = serviceProvider.GetRequiredService<MinioContext>();
 
-            await minioContext.CreateBucketAsync("ProductImages");
+            await minioContext.CreateBucketAsync("product-images");
         }
     }
 }

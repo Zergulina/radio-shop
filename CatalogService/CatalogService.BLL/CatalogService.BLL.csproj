@@ -10,7 +10,18 @@
     <ProjectReference Include="..\CatalogService.DAL\CatalogService.DAL.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Protobuf Include="Protos\product_image.proto" GrpcServices="Client" />
+	</ItemGroup>
+
   <ItemGroup>
+	<PackageReference Include="Google.Protobuf" Version="3.30.2" />
+	<PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+	<PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+	<PackageReference Include="Grpc.Tools" Version="2.71.0">
+		<PrivateAssets>all</PrivateAssets>
+		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
     <PackageReference Include="MassTransit" Version="8.4.0" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.2" />

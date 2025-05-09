@@ -21,18 +21,18 @@ namespace ImageService.DAL.Repositories
         public async Task<string> CreateAsync(Image image)
         {
             string id = Guid.NewGuid().ToString();
-            await _minioContext.UploadFileAsync("ProductImages", id, image.ImageData, image.ImageType);
+            await _minioContext.UploadFileAsync("product-images", id, image.ImageData, image.ImageType);
             return id;
         }
 
         public async Task DeleteAsync(string id)
         {
-            await _minioContext.DeleteFileAsync("ProductImages", id);
+            await _minioContext.DeleteFileAsync("product-images", id);
         }
 
         public async Task<Image> GetByIdAsync(string id)
         {
-           var (imageData, imageType) = await _minioContext.GetFileAsync("ProductImages", id);
+           var (imageData, imageType) = await _minioContext.GetFileAsync("product-images", id);
             return new Image
             {
                 Id = id,

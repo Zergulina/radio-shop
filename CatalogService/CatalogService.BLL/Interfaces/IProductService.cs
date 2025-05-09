@@ -28,7 +28,7 @@ public interface IProductService
     Task<ProductDto> AddTagsAsync(int productId, params int[] tagIds);
     Task<ProductDto> RemoveTagsAsync(int productId, params int[] tagIds);
     Task<ProductDto> GetByIdAsync(int id);
-    Task<ProductDto> CreateAsync(ProductDto dto);
+    Task<ProductDto> CreateAsync(ProductDto dto, ProductImageGrpcCreateRequest imageDto);
     Task<ProductDto> UpdateAsync(int id, ProductDto dto);
     Task<ProductDto> DeleteAsync(int id);
 }

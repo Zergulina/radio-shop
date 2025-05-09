@@ -12,6 +12,6 @@ namespace CartService.Dtos.Product
         public byte Rating { get; set; } = 0;
         public long OrderAmount { get; set; } = 0;
         public List<TagResponseDto> Tags { get; set; } = new List<TagResponseDto>();
-        public int? ImageId { get; set; } = null;
+        public string? ImageId { get; set; } = null;
     }
 }

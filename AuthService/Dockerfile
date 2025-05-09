@@ -14,6 +14,4 @@ WORKDIR /app
 
 COPY --from=build /app/publish .
 
-EXPOSE ${PORT}
-
 ENTRYPOINT ["dotnet", "AuthService.dll"]

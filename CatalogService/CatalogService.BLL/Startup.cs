@@ -1,5 +1,4 @@
 using System;
-using CatalogService.BLL.Consumers;
 using CatalogService.BLL.Interfaces;
 using CatalogService.BLL.Services;
 using CatalogService.DAL.Interfaces;
@@ -15,6 +14,11 @@ public static class Startup
 {
     public static IServiceCollection AddBLL(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddGrpcClient<ProductImageGrpc.ProductImageGrpcClient>(options =>
+        {
+            options.Address = new Uri(configuration.GetConnectionString("ProductImageServiceGrpcConnection"));
+        });
+
         services.AddScoped<ITagService, TagService>();
         services.AddScoped<IProductService, ProductService>();
 

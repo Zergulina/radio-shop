@@ -16,7 +16,7 @@ namespace CartService.DAL.Models
         public long TotalRating { get; set; } = 0;
         public long RatingAmount { get; set; } = 0;
         public long OrderAmount { get; set; } = 0;
-        public int? ImageId { get; set; } = null;
+        public string? ImageId { get; set; } = null;
         public List<Tag> Tags { get; set; } = new();
     }
 }

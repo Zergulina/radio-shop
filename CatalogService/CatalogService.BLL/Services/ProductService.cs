@@ -4,6 +4,7 @@ using CatalogService.BLL.Exceptions;
 using CatalogService.BLL.Interfaces;
 using CatalogService.BLL.Mappers;
 using CatalogService.DAL.Interfaces;
+using MassTransit;
 
 namespace CatalogService.BLL.Services;
 
@@ -12,11 +13,14 @@ internal class ProductService : IProductService
         private readonly IProductRepository _productRepository;
         private readonly ITagRepository _tagRepository;
         private readonly IProductTagRepository _productTagRepository;
-        public ProductService(IProductRepository productRepository, ITagRepository tagRepository, IProductTagRepository productTagRepository)
+        private readonly ProductImageGrpc.ProductImageGrpcClient _productImageGrpcClient;
+        public ProductService(
+            IProductRepository productRepository, ITagRepository tagRepository, IProductTagRepository productTagRepository, ProductImageGrpc.ProductImageGrpcClient productImageGrpcClient)
         {
             _productRepository = productRepository;
             _tagRepository = tagRepository;
-            _productTagRepository = productTagRepository;   
+            _productTagRepository = productTagRepository;
+            _productImageGrpcClient = productImageGrpcClient;
         }
 
         public async Task<ProductDto> AddTagsAsync(int productId, params int[] tagIds)
@@ -52,9 +56,20 @@ internal class ProductService : IProductService
             return await _productRepository.CountAsync(minPrice, maxPrice, minRating, maxRating, name, tag);
         }
 
-        public async Task<ProductDto> CreateAsync(ProductDto dto)
+        public async Task<ProductDto> CreateAsync(ProductDto dto, ProductImageGrpcCreateRequest imageDto)
         {
-            var product = await _productRepository.CreateAsync(dto.ToModel());
+        string? imageId  = null;
+        if (imageDto != null)
+        {
+            var response = await _productImageGrpcClient.CreateAsync(imageDto);
+            if (!response.Success)
+            {
+                throw new Exception();
+            }
+            imageId = response.Id;
+        }
+        dto.ImageId = imageId;
+        var product = await _productRepository.CreateAsync(dto.ToModel());
             return product.ToDto();
         }
 

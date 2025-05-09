@@ -15,7 +15,6 @@ namespace ImageService.DAL.Data
             _minioClient = new MinioClient()
                 .WithEndpoint(minioConfig["Endpoint"])
                 .WithCredentials(minioConfig["AccessKey"], minioConfig["SecretKey"])
-                .WithSSL(bool.Parse(minioConfig["WithSSL"]))
                 .Build();
         }
 
@@ -34,22 +33,28 @@ namespace ImageService.DAL.Data
                 .WithBucket(bucketName)
                 .WithObject(objectName)
                 .WithStreamData(fileStream)
+                .WithObjectSize(fileStream.Length)
                 .WithContentType(contentType));
         }
 
         public async Task<(Stream, string)> GetFileAsync(string bucketName, string objectName)
         {
             var memoryStream = new MemoryStream();
-            var contentType = string.Empty;
             await _minioClient.GetObjectAsync(new GetObjectArgs()
                 .WithBucket(bucketName)
                 .WithObject(objectName)
                 .WithCallbackStream(stream => {
                     stream.CopyTo(memoryStream);
                     memoryStream.Position = 0;
-
-                    contentType = stream.GetType().GetProperty("ContentType")?.GetValue(stream) as string;
                 }));
+
+            var statArgs = new StatObjectArgs()
+                .WithBucket(bucketName)
+                .WithObject(objectName);
+
+            var stat = await _minioClient.StatObjectAsync(statArgs);
+            var contentType = stat.ContentType;
+
             return (memoryStream, contentType);
         }
 

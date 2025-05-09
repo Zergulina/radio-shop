@@ -1,55 +1,85 @@
 {
     "Routes": [
-            {
-                "DownstreamPathTemplate": "/swagger/v1/swagger.json",
-                "DownstreamScheme": "http",
-                "DownstreamHostAndPorts": [
-                    {
-                        "Host": "auth-service",
-                        "Port": 8001
-                    }
-                ],
-                "UpstreamPathTemplate": "/users/swagger/v1/swagger.json",
-                "UpstreamHttpMethod": [
-                    "GET"
-                ]
-            },
-            {
-                "DownstreamPathTemplate": "/swagger/v1/swagger.json",
-                "DownstreamScheme": "http",
-                "DownstreamHostAndPorts": [
-                    {
-                        "Host": "catalog-service",
-                        "Port": 8002
-                    }
-                ],
-                "UpstreamPathTemplate": "/catalog/swagger/v1/swagger.json",
-                "UpstreamHttpMethod": [
-                    "GET"
-                ]
-            },
-            {
-                "DownstreamPathTemplate": "/swagger/v1/swagger.json",
-                "DownstreamScheme": "http",
-                "DownstreamHostAndPorts": [
-                    {
-                        "Host": "cart-service",
-                        "Port": 8003
-                    }
-                ],
-                "UpstreamPathTemplate": "/cart/swagger/v1/swagger.json",
-                "UpstreamHttpMethod": [
-                    "GET"
-                ],
-                "Priority": 0
-            },
+        {
+            "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "auth-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/users/swagger/v1/swagger.json",
+            "UpstreamHttpMethod": [
+                "GET"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "catalog-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/catalog/swagger/v1/swagger.json",
+            "UpstreamHttpMethod": [
+                "GET"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "cart-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/cart/swagger/v1/swagger.json",
+            "UpstreamHttpMethod": [
+                "GET"
+            ],
+            "Priority": 0
+        },
+        {
+            "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "image-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/images/swagger/v1/swagger.json",
+            "UpstreamHttpMethod": [
+                "GET"
+            ],
+            "Priority": 0
+        },
+        {
+            "DownstreamPathTemplate": "/api/products/images/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "image-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/api/products/images/{everything}",
+            "UpstreamHttpMethod": [
+                "GET"
+            ],
+            "SwaggerKey": "images"
+        },
         {
             "DownstreamPathTemplate": "/api/cart/{everything}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "cart-service",
-                    "Port": 8003
+                    "Port": 8000
                 }
             ],
             "UpstreamPathTemplate": "/api/cart/{everything}",
@@ -67,7 +97,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "cart-service",
-                    "Port": 8003
+                    "Port": 8000
                 }
             ],
             "UpstreamPathTemplate": "/api/users/{userId}/cart/{everything}",
@@ -85,7 +115,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "cart-service",
-                    "Port": 8003
+                    "Port": 8000
                 }
             ],
             "UpstreamPathTemplate": "/api/products/{productId}/cart/{everything}",
@@ -103,7 +133,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "auth-service",
-                    "Port": 8001
+                    "Port": 8000
                 }
             ],
             "UpstreamPathTemplate": "/api/users/{everything}",
@@ -121,7 +151,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "catalog-service",
-                    "Port": 8002
+                    "Port": 8000
                 }
             ],
             "UpstreamPathTemplate": "/api/products/{everything}",
@@ -139,7 +169,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "catalog-service",
-                    "Port": 8002
+                    "Port": 8000
                 }
             ],
             "UpstreamPathTemplate": "/api/tags/{everything}",
