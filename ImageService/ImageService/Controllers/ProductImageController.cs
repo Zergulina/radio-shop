@@ -13,7 +13,7 @@ namespace ImageService.Controllers
             _productImageService = productImageService;
         }
 
-        [Route("{imageId}")]
+        [HttpGet("{imageId}")]
         public async Task<IActionResult> GetById([FromRoute] string imageId)
         {
             var file = await _productImageService.GetByIdAsync(imageId);
