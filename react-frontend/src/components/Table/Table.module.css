@@ -1,0 +1,263 @@
+.TablePlate {
+    height: calc(100% - 50px);
+    background-color: transparent;
+    border-radius: 15px;
+}
+
+.TableController {
+    height: 60px;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: solid #f0f4f7 3px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 30px;
+}
+
+.FilterButton {
+    height: 30px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    outline: none;
+}
+
+.FilterIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.TableWrapper {
+    max-height: calc(100% - 60px);
+    overflow: auto;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.TableWrapper::-webkit-scrollbar {
+    background-color: transparent;
+    width: 7px;
+    height: 7px;
+}
+
+.TableWrapper::-webkit-scrollbar-thumb {
+    background-color: #bebebe;
+    border-radius: 15px;
+}
+
+.Table {
+    position: relative;
+    margin: 0;
+    border-collapse: collapse;
+    border: 0;
+    width: 100%;
+    display: table;
+}
+
+.Table img {
+    max-width: 200px;
+    max-height: 150px;
+}
+
+.Table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: white;
+}
+
+.Table td,
+Table th {
+    min-width: 50px;
+    font-size: 20px;
+    line-height: 20px;
+    white-space: nowrap;
+}
+
+.Table th {
+    font-weight: 300;
+    text-align: start;
+    font-size: 12px;
+    color: #565656d1;
+    padding: 0 10px;
+}
+
+.Table td {
+    font-size: 12px;
+    min-height: 30px;
+    max-height: fit-content !important;
+}
+
+.Table tr {
+    border-bottom: solid #f0f4f7 3px;
+}
+
+.FirstColumn {
+    position: sticky;
+    left: 0;
+    margin: 0;
+    background-color: white;
+}
+
+.FirstColumnCellColumn {
+    width: 100%;
+}
+
+.FirstColumnCellColumnText {
+    padding-left: 5px;
+}
+
+.CellText {
+    height: 20px;
+    width: fit-content;
+    padding: 0 10px;
+}
+
+
+.IconWrapper {
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.Icon {
+    height: 16px;
+    width: 16px;
+}
+
+.RowControlsWrapper {
+    top: 0;
+    position: sticky;
+    right: -1px;
+    background-color: white;
+    display: flex;
+    justify-content: end;
+    height: 20px;
+}
+
+.RowControls {
+    display: flex;
+    position: relative;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.TableControllers {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.TableControllersLeft {
+    display: flex;
+    gap: 30px
+}
+
+.PageSizeSelection {
+    font-size: 14px;
+    color: #888888;
+    background-color: white;
+    border-radius: 10px;
+    height: 30px;
+    width: 170px;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.PageSizeSelectionTitle {
+    background-color: #f0f4f7;
+    border-radius: 7px;
+    height: 24px;
+    display: flex;
+    margin-right: 5px;
+}
+
+.PageSizeSelectionTitle div {
+    margin: auto;
+    padding: 0 7px;
+}
+
+.RadioButtons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    user-select: none;
+}
+
+.ShowIdSelection {
+    font-size: 14px;
+    color: #888888;
+    background-color: white;
+    border-radius: 10px;
+    height: 30px;
+    width: 130px;
+    display: flex;
+}
+
+.ShowIdSelection div {
+    margin: auto;
+    display: flex;
+    gap: 5px;
+}
+
+.ShowIdSelection label {
+    margin-top: 2px;
+}
+
+.TableControllersRight {
+    display: flex;
+    justify-content: right;
+    flex-grow: 1;
+}
+
+.PageNumberSelection {
+    font-size: 14px;
+    color: #888888;
+    background-color: white;
+    border-radius: 10px;
+    height: 30px;
+    width: 265px;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.Button {
+    height: 30px;
+    min-height: 30px !important;
+}
+
+
+.PageNumberSelectionRadioButtons {
+    overflow: hidden;
+    height: 30px;
+    padding: 4px;
+    flex-grow: 1;
+}
+
+.ArrowButton {
+    outline: none;
+    border: 0;
+    background-color: transparent;
+}
+
+.RightArrow {
+    transform: scale(-1, 1);
+}
+
+.LeftEllipsis {
+    padding-left: 4px;
+}
+
+.RightEllipsis {
+    padding-right: 4px;
+}

@@ -1,0 +1,11 @@
+.Page {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    padding: 10px;
+    background-color: #f0f4f7;
+}
+
+.Table {
+    height: 100%;
+}

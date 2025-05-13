@@ -1,0 +1,4 @@
+.Panel {
+    border: solid 2px var(--accent-color);
+    border-radius: 15px;
+}

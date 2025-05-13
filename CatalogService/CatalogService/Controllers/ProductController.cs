@@ -67,7 +67,7 @@ namespace CatalogService.Controllers
             }
 
 
-            return Ok((await _productService.CreateAsync(createRequestDto.ToDto(), createRequestDto.ToImageDto())).ToResponseDto());
+            return Ok((await _productService.CreateAsync(createRequestDto.ToDto(), createRequestDto.ImageFile != null ? createRequestDto.ToImageDto() : null)).ToResponseDto());
         }
 
         [HttpPut("{id:int}")]

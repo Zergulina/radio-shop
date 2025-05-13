@@ -10,8 +10,6 @@ public class CreateProductRequestDto
         [Required]
         public string Description { get; set; }
         [Required]
-        public long PriceRuble { get; set; }
-        [Required]
-        public byte PriceKopek { get; set; }
+        public decimal Price { get; set; }
         public IFormFile? ImageFile { get; set; }
 }

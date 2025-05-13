@@ -1,0 +1,43 @@
+.TagSelector {
+  margin: 20px 0;
+  height: 370px;
+}
+
+.TagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.Tag {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.Tag:hover {
+  background-color: #e8e8e8;
+}
+
+.TagProduct {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+  cursor: default;
+}
+
+.TagSelected {
+  background-color: #cce5ff;
+  border-color: #b8daff;
+  color: #004085;
+}
+
+.TagDeleteSelected {
+  background-color: #da0000;
+  border-color: #ffb8b8;
+  color: #ffffff;;
+}

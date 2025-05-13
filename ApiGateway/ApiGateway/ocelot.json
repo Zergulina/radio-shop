@@ -180,6 +180,20 @@
                 "DELETE"
             ],
             "SwaggerKey": "catalog"
+        },
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "react-frontend",
+                    "Port": 3000
+                }
+            ],
+            "UpstreamPathTemplate": "/{everything}",
+            "UpstreamHttpMethod": [
+                "GET"
+            ]
         }
     ],
     "GlobalConfiguration": {

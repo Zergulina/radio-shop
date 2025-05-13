@@ -33,7 +33,7 @@ internal class ProductService : IProductService
 
             foreach (var tagId in tagIds)
             {
-                if (!await _productRepository.ExistsAsync(tagId))
+                if (!await _tagRepository.ExistsAsync(tagId))
                 {
                     throw new NotFoundException("Tag not found");
                 }
@@ -51,12 +51,12 @@ internal class ProductService : IProductService
             return product.ToDto();
         }
 
-        public async Task<int> CountAsync(ulong? minPrice = null, ulong? maxPrice = null, byte? minRating = null, byte? maxRating = null, string? name = null, string? tag = null)
+        public async Task<int> CountAsync(decimal? minPrice = null, decimal? maxPrice = null, byte? minRating = null, byte? maxRating = null, string? name = null, string? tag = null)
         {
             return await _productRepository.CountAsync(minPrice, maxPrice, minRating, maxRating, name, tag);
         }
 
-        public async Task<ProductDto> CreateAsync(ProductDto dto, ProductImageGrpcCreateRequest imageDto)
+        public async Task<ProductDto> CreateAsync(ProductDto dto, ProductImageGrpcCreateRequest? imageDto)
         {
         string? imageId  = null;
         if (imageDto != null)
@@ -66,9 +66,8 @@ internal class ProductService : IProductService
             {
                 throw new Exception();
             }
-            imageId = response.Id;
+            dto.ImageId = response.Id;
         }
-        dto.ImageId = imageId;
         var product = await _productRepository.CreateAsync(dto.ToModel());
             return product.ToDto();
         }
@@ -84,7 +83,7 @@ internal class ProductService : IProductService
             return product.ToDto();
         }
 
-        public async Task<List<ProductDto>> GetAllAsync(int pageNumber = 1, int pageSize = 20, ulong? minPrice = null, ulong? maxPrice = null, byte? minRating = null, byte? maxRating = null, string? name = null, string? tag = null, bool isDescending = false, string? sortBy = null)
+        public async Task<List<ProductDto>> GetAllAsync(int pageNumber = 1, int pageSize = 20, decimal? minPrice = null, decimal? maxPrice = null, byte? minRating = null, byte? maxRating = null, string? name = null, string? tag = null, bool isDescending = false, string? sortBy = null)
         {
             var products = await _productRepository.GetAllAsync(pageNumber, pageSize, minPrice, maxPrice, minRating, maxRating, name, tag, isDescending, sortBy);
 
@@ -112,7 +111,7 @@ internal class ProductService : IProductService
 
             foreach (var tagId in tagIds)
             {
-                if (!await _productRepository.ExistsAsync(tagId))
+                if (!await _tagRepository.ExistsAsync(tagId))
                 {
                     throw new NotFoundException("Tag not found");
                 }

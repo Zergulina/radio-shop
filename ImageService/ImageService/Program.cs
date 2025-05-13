@@ -1,6 +1,7 @@
 using ImageService;
 using ImageService.GrpcServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -15,6 +16,18 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 });
 
 builder.Services.AddGrpc();
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(builder.Configuration["HTTP_2_PORTS"]), listenOptions =>
+    {
+        listenOptions.Protocols = HttpProtocols.Http2;
+    });
+    options.ListenAnyIP(int.Parse(builder.Configuration["HTTP_PORTS"]), listenOptions =>
+    {
+        listenOptions.Protocols = HttpProtocols.Http1;
+    });
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>

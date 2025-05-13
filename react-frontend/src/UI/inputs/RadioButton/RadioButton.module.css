@@ -1,0 +1,30 @@
+.RadioButton {
+    display: none;
+}
+
+.Label {
+    padding: 3px 5px;
+    border-radius: 7px;
+    background-color: #fff;
+    color: #565656d1;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.RadioButton:checked+label {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.Label:hover {
+    background-color: var(--accent-color-focused);
+    color: white;
+}
+
+.Label:active {
+    background-color: var(--accent-color-selected);
+}
+
+.RadioButton:disabled+label {
+    background: #efefef;
+}

@@ -13,8 +13,7 @@ public static class ProductMapper
         {
             Name = createProductRequestDto.Name,
             Description = createProductRequestDto.Description,
-            PriceRuble = createProductRequestDto.PriceRuble,
-            PriceKopek = createProductRequestDto.PriceKopek,
+            Price = createProductRequestDto.Price,
         };
     }
 
@@ -37,8 +36,7 @@ public static class ProductMapper
         {
                 Name = updateProductRequestDto.Name,
                 Description = updateProductRequestDto.Description,
-                PriceRuble = updateProductRequestDto.PriceRuble,
-                PriceKopek = updateProductRequestDto.PriceKopek,
+                Price = updateProductRequestDto.Price
         };
     }
 
@@ -49,8 +47,7 @@ public static class ProductMapper
             Id = productDto.Id,
             Name = productDto.Name,
             Description = productDto.Description,
-            PriceRuble = productDto.PriceRuble,
-            PriceKopek = productDto.PriceKopek,
+            Price = productDto.Price,
             Tags = productDto.Tags.Select(x => x.ToResponseDto()).ToList(),
             ImageId = productDto.ImageId,
         };

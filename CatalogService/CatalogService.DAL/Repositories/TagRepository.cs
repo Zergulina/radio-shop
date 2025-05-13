@@ -61,6 +61,7 @@ internal class TagRepository : ITagRepository
             existingTag.Name = tag.Name;
             
             await _context.SaveChangesAsync();
+            tag.Id = id;
             return tag;
         }
     }

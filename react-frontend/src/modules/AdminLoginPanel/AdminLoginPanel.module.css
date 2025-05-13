@@ -1,0 +1,27 @@
+.AdminLoginPanel {
+    width: 350px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.TextInput {
+    background-color: white;
+    width: 100%;
+}
+
+.TextInput input {
+    background-color: white;
+}
+
+.AdminLoginPanel h1 {
+    font-size: 1.5rem;
+}
+
+.AdminLoginPanel h2 {
+    font-size: 1.2rem;
+}

@@ -8,8 +8,8 @@ public interface IProductService
     Task<List<ProductDto>> GetAllAsync(
                 int pageNumber = 1,
                 int pageSize = 20,
-                ulong? minPrice = null,
-                ulong? maxPrice = null,
+                decimal? minPrice = null,
+                decimal? maxPrice = null,
                 byte? minRating = null,
                 byte? maxRating = null,
                 string? name = null,
@@ -18,8 +18,8 @@ public interface IProductService
                 string? sortBy = null
             );
     Task<int> CountAsync(
-        ulong? minPrice = null,
-        ulong? maxPrice = null,
+        decimal? minPrice = null,
+        decimal? maxPrice = null,
         byte? minRating = null,
         byte? maxRating = null,
         string? name = null,
@@ -28,7 +28,7 @@ public interface IProductService
     Task<ProductDto> AddTagsAsync(int productId, params int[] tagIds);
     Task<ProductDto> RemoveTagsAsync(int productId, params int[] tagIds);
     Task<ProductDto> GetByIdAsync(int id);
-    Task<ProductDto> CreateAsync(ProductDto dto, ProductImageGrpcCreateRequest imageDto);
+    Task<ProductDto> CreateAsync(ProductDto dto, ProductImageGrpcCreateRequest? imageDto);
     Task<ProductDto> UpdateAsync(int id, ProductDto dto);
     Task<ProductDto> DeleteAsync(int id);
 }

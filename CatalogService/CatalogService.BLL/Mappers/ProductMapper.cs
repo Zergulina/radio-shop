@@ -13,8 +13,7 @@ internal static class ProductMapper
                 Id = model.Id,
                 Name = model.Name,
                 Description = model.Description,
-                PriceRuble = model.PriceRuble,
-                PriceKopek = model.PriceKopek,
+                Price = model.Price,
                 Rating = (byte)(model.RatingAmount > 0 ? model.TotalRating / model.RatingAmount : 0),
                 Tags = model.Tags.Select(x => x.ToDto()).ToList(),
                 ImageId = model.ImageId,
@@ -27,8 +26,7 @@ internal static class ProductMapper
             {
                 Name = dto.Name,
                 Description = dto.Description,
-                PriceRuble = dto.PriceRuble,
-                PriceKopek= dto.PriceKopek,
+                Price = dto.Price,
                 ImageId = dto.ImageId,
             };
         }

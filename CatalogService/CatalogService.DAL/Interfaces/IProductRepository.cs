@@ -9,8 +9,8 @@ public interface IProductRepository
     Task<List<Product>> GetAllAsync(
         int pageNumber = 1,
         int pageSize = 20,
-        ulong? minPrice = null,
-        ulong? maxPrice = null,
+        decimal? minPrice = null,
+        decimal? maxPrice = null,
         byte? minRating = null,
         byte? maxRating = null,
         string? name = null,
@@ -19,8 +19,8 @@ public interface IProductRepository
         string? sortBy = null
     );
     Task<int> CountAsync(
-        ulong? minPrice = null,
-        ulong? maxPrice = null,
+        decimal? minPrice = null,
+        decimal? maxPrice = null,
         byte? minRating = null,
         byte? maxRating = null,
         string? name = null,

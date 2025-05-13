@@ -14,17 +14,17 @@ internal class ProductRepository : IProductRepository
             _context = context;
         }
 
-        public async Task<int> CountAsync(ulong? minPrice = null, ulong? maxPrice = null, byte? minRating = null, byte? maxRating = null, string? name = null, string? tag = null)
+        public async Task<int> CountAsync(decimal? minPrice = null, decimal? maxPrice = null, byte? minRating = null, byte? maxRating = null, string? name = null, string? tag = null)
         {
             var products = _context.Products.Include(x => x.Tags).AsQueryable();
 
             if (minPrice != null)
             {
-                products = products.Where(x => ((ulong)(x.PriceRuble) + (ulong)(x.PriceKopek) * 100) >= minPrice);
+                products = products.Where(x => x.Price >= minPrice);
             }
             if (maxPrice != null)
             {
-                products = products.Where(x => ((ulong)(x.PriceRuble) + (ulong)(x.PriceKopek) * 100) <= maxPrice);
+                products = products.Where(x => x.Price <= maxPrice);
             }
             if (minRating != null)
             {
@@ -71,17 +71,17 @@ internal class ProductRepository : IProductRepository
             return await _context.Products.AnyAsync(x => x.Id == id);
         }
 
-        public async Task<List<Product>> GetAllAsync(int pageNumber = 1, int pageSize = 20, ulong? minPrice = null, ulong? maxPrice = null, byte? minRating = null, byte? maxRating = null, string? name = null, string? tag = null, bool isDescending = false, string? sortBy = null)
+        public async Task<List<Product>> GetAllAsync(int pageNumber = 1, int pageSize = 20, decimal? minPrice = null, decimal? maxPrice = null, byte? minRating = null, byte? maxRating = null, string? name = null, string? tag = null, bool isDescending = false, string? sortBy = null)
         {
             var products = _context.Products.Include(x => x.Tags).AsQueryable();
 
             if (minPrice != null)
             {
-                products = products.Where(x => ((ulong)(x.PriceRuble) + (ulong)(x.PriceKopek) * 100) >= minPrice);
+                products = products.Where(x => x.Price >= minPrice);
             }
             if (maxPrice != null)
             {
-                products = products.Where(x => ((ulong)(x.PriceRuble) + (ulong)(x.PriceKopek) * 100) <= maxPrice);
+                products = products.Where(x => x.Price <= maxPrice);
             }
             if (minRating != null)
             {
@@ -104,7 +104,7 @@ internal class ProductRepository : IProductRepository
             {
                 if (string.Equals(sortBy, "price", StringComparison.OrdinalIgnoreCase))
                 {
-                    products = isDescending ? products.OrderByDescending(x => ((ulong)(x.PriceRuble) + (ulong)(x.PriceKopek) * 100)) : products.OrderBy(x => ((ulong)(x.PriceRuble) + (ulong)(x.PriceKopek) * 100));
+                    products = isDescending ? products.OrderByDescending(x => x.Price) : products.OrderBy(x => x.Price);
                 }
                 if (string.Equals(sortBy, "rating", StringComparison.OrdinalIgnoreCase))
                 {
@@ -134,8 +134,7 @@ internal class ProductRepository : IProductRepository
 
             existingProduct.Name = product.Name;
             existingProduct.Description = product.Description;
-            existingProduct.PriceRuble = product.PriceRuble;
-            existingProduct.PriceKopek = product.PriceKopek;
+            existingProduct.Price = product.Price;
 
             await _context.SaveChangesAsync();
             return existingProduct;

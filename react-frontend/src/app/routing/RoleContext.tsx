@@ -21,8 +21,8 @@ const extractRolesFromToken = (token: string | null): string[] => {
     try {
         const payload = token.split('.')[1];
         const decodedPayload = atob(payload);
-        const { roles } = JSON.parse(decodedPayload);
-        return roles || [];
+        const { role } = JSON.parse(decodedPayload);
+        return role || [];
     } catch (error) {
         console.error('Failed to parse JWT token', error);
         return [];

@@ -1,0 +1,38 @@
+.AdminCatalogMenu {
+    height: 100%;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--accent-color-unsaturated);
+}
+
+.NavLink {
+    display: flex;
+    color: black;
+    text-decoration: none;
+    padding: 0 5px;
+    text-justify: center;
+    font-size: 1rem;
+    height: 35px;
+}
+
+.NavLinkText {
+    margin: auto;
+    width: 100%;
+}
+
+.NavLink:hover {
+    background-color: var(--accent-color-focused);
+    color: white;
+}
+
+.ActiveNavLink {
+    background-color: var(--accent-color-selected);
+    color: white;
+}
+
+.Content {
+    display: flex;
+    height: calc(100vh - 25px);
+}

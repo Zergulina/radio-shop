@@ -129,6 +129,7 @@ services:
     container_name: ${IMAGE_HOST}
     expose:
       - ${IMAGE_PORT}
+      - ${IMAGE_PORT_HTTP_2}
     environment:
       - Minio__Endpoint=${MINIO_HOST}:${MINIO_PORT}
       - Minio__AccessKey=${MINIO_ACCESS_KEY}
@@ -160,6 +161,14 @@ services:
       timeout: 20s
       retries: 3
       start_period: 10s
+  react-frontend:
+    build: ./react-frontend
+    container_name: ${REACT_HOST}
+    environment:
+      - PORT=${REACT_PORT}
+      - REACT_APP_PUBLIC_URL=http://${API_GATEWAY_HOST}:${API_GATEWAY_PORT}/api/
+    expose:
+      - ${REACT_PORT}
 
 volumes:
   minio-data:

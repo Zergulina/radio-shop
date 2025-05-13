@@ -1,0 +1,17 @@
+.Modal {
+    background-color: white;
+}
+
+.ItemList {
+    display: flex;
+    flex-direction: column;
+}
+
+.Item {
+    display: block;
+}
+
+.Button {
+    height: 25px;
+    min-height: 25px !important;
+}

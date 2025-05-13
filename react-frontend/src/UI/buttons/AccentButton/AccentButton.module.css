@@ -1,0 +1,16 @@
+.AccentButton {
+    background-color: var(--accent-color);
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.AccentButton:hover {
+    background-color: var(--accent-color-focused);
+}
+
+.AccentButton:active {
+    background-color: var(--accent-color-selected);
+}

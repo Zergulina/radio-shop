@@ -1,0 +1,46 @@
+.Modal {
+    width: 600px;
+    height: 750px;
+    background-color: white;
+    align-items: center;
+}
+
+.InputText {
+    background-color: white;
+}
+
+.InputText input {
+    background-color: white;
+}
+
+.Image {
+    width: 160px;
+    height: 200px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.ImageWrapper {
+    padding: 10px;
+}
+
+.Wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.InputsWrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.ButtonWrapper {
+    height: 55px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
