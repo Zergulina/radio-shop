@@ -46,7 +46,7 @@
     position: absolute;
     top: 50px;
     width: 400px;
-    height: 850px;
+    height: 650px;
     border: solid 1px var(--border-color);
     transition: all ease-in-out 0.2s;
     padding: 15px;

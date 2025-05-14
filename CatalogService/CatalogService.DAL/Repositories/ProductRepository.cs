@@ -93,8 +93,8 @@ internal class ProductRepository : IProductRepository
             }
             if (name != null)
             {
-                products = products.Where(x => x.Name.Contains(name));
-            }
+                products = products.Where(x => x.Name.ToUpper().Contains(name.ToUpper()));
+        }
             if (tag != null)
             {
                 products = products.Where(x => x.Tags.Select(x => x.Name).Any(tagName => tag.Contains(tagName)));

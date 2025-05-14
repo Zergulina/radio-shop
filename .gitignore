@@ -27,3 +27,5 @@ Thumbs.db
 *.nupkg
 packages/
 !**/packages.config
+
+./minio-data
