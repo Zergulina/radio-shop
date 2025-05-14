@@ -106,11 +106,11 @@ internal class ProductRepository : IProductRepository
                 {
                     products = isDescending ? products.OrderByDescending(x => x.Price) : products.OrderBy(x => x.Price);
                 }
-                if (string.Equals(sortBy, "rating", StringComparison.OrdinalIgnoreCase))
+                else if (string.Equals(sortBy, "rating", StringComparison.OrdinalIgnoreCase))
                 {
                     products = isDescending ? products.OrderByDescending(x => (x.RatingAmount > 0 ? x.TotalRating / x.RatingAmount : 0)) : products.OrderBy(x => x.TotalRating / x.RatingAmount);
                 }
-                if (string.Equals(sortBy, "name", StringComparison.OrdinalIgnoreCase))
+                else if (string.Equals(sortBy, "name", StringComparison.OrdinalIgnoreCase))
                 {
                     products = isDescending ? products.OrderByDescending(x => x.Name) : products.OrderBy(x => x.Name);
                 }
