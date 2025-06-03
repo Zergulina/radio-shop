@@ -45,5 +45,13 @@ namespace CartService.Mappers
                 Amount = dto.Amount
             };
         }
+
+        public static CartDto ToDto(this UpdateCartRequestDto dto)
+        {
+            return new CartDto
+            {
+                Amount = dto.Amount
+            };
+        }
     }
 }

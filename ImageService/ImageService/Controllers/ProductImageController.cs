@@ -17,7 +17,7 @@ namespace ImageService.Controllers
         public async Task<IActionResult> GetById([FromRoute] string imageId)
         {
             var file = await _productImageService.GetByIdAsync(imageId);
-            var extention = "application/octet-stream";
+            var extention = "";
             extention = file.ImageType switch
             {
                 "image/jpeg" => ".jpeg",

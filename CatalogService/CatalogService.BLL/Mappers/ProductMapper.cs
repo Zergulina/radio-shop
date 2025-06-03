@@ -14,8 +14,9 @@ internal static class ProductMapper
                 Name = model.Name,
                 Description = model.Description,
                 Price = model.Price,
-                Rating = (byte)(model.RatingAmount > 0 ? model.TotalRating / model.RatingAmount : 0),
+                Rating = model.RatingAmount > 0 ? model.TotalRating / model.RatingAmount : 0,
                 Tags = model.Tags.Select(x => x.ToDto()).ToList(),
+                OrderAmount = model.OrderAmount,
                 ImageId = model.ImageId,
             };
         }

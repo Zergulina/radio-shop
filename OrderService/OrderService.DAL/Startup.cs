@@ -21,6 +21,8 @@ public static class Startup
         services.AddScoped<IOrderUnitRepository, OrderUnitRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
 
+        services.AddHostedService<DatabaseInitializer>();
+
         return services;
     }
 }

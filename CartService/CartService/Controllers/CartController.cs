@@ -5,7 +5,6 @@ using CartService.Mappers;
 using CartService.Queries.Cart;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace CartService.Controllers
 {
@@ -37,7 +36,7 @@ namespace CartService.Controllers
             try
             {
                 var cart = await _cartService.CreateAsync(createDto.ToDto(userId, productId));
-                return Ok(cart.ToResponse());
+                return Ok(cart.ToProductCartResponse());
             }
             catch (NotFoundException e)
             {
@@ -126,6 +125,30 @@ namespace CartService.Controllers
             catch (NotFoundException e)
             {
                 return NotFound(e.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+        [HttpPut("cart/{productId:int}")]
+        [Authorize]
+        public async Task<IActionResult> Update([FromRoute] int productId, [FromBody] UpdateCartRequestDto updateDto)
+        {
+            var userId = User.FindFirst("UserId")?.Value;
+
+            if (userId == null)
+            {
+                return Unauthorized("User Id is not valid");
+            }
+
+            try
+            {
+                return Ok((await _cartService.UpdateAsync(userId, productId, updateDto.ToDto())).ToProductCartResponse());
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception)
             {

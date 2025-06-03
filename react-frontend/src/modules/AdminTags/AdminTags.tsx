@@ -73,12 +73,12 @@ const AdminTags = () => {
                 <div className={classes.TablePlate}>
                     <div className={classes.TableController}>
                         <div className={classes.TableControllerWrapper}>
-                            <label>
+                            <label className={classes.SortParameters}>
                                 Сортировка
                                 <Listbox id={useId()} selectOptions={[{ value: "", name: "Без сортировки" }, ...sortOptions]} setValue={(value: string) => setSortBy(value)} value={sortBy} />
                                 <Listbox id={useId()} selectOptions={[{ value: "false", name: "По возрастанию" }, { value: "true", name: "По убыванию" }]} setValue={(value: string) => setIsDescending(value == "true")} />
                             </label>
-                            <TextInput value={name} setValue={setName} placeholder='Название' label='Сортировка по названию' className={classes.TextInput}/>
+                            <TextInput value={name} setValue={setName} placeholder='Название' label='Сортировка по названию' className={classes.TextInput} />
                         </div>
                     </div>
                     <div className={classes.TableWrapper}>

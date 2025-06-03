@@ -17,7 +17,7 @@ namespace OrderService.DAL.Repositories
         {
             _context = context;
         }
-        public async Task<int> CountOrderIdAsync(
+        public async Task<int> CountByOrderIdAsync(
             int orderId,
             ulong? minAmount = null, 
             ulong? maxAmount = null, 

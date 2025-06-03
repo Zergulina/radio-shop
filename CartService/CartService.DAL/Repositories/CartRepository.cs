@@ -83,5 +83,17 @@ namespace CartService.DAL.Repositories
         {
             return await _context.Carts.FirstOrDefaultAsync(x => x.UserId.Equals(userId) && x.ProductId == productId);
         }
+
+        public async Task<Cart?> UpdateAsync(string userId, int productId, Cart cart)
+        {
+            var existingCart = await _context.Carts.Include(x => x.Product).ThenInclude(x => x.Tags).FirstOrDefaultAsync(x => x.UserId.Equals(userId) && productId == x.ProductId);
+            if  (existingCart == null)
+            {
+                return null;
+            }
+            existingCart.Amount = cart.Amount;
+            await _context.SaveChangesAsync();
+            return existingCart;
+        }
     }
 }

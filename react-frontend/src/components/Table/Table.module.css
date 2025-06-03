@@ -30,6 +30,12 @@
     height: 20px;
 }
 
+.SortParameters {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
 .TableWrapper {
     max-height: calc(100% - 60px);
     overflow: auto;

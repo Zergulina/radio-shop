@@ -1,0 +1,30 @@
+.Cart {
+    padding: 15px;
+}
+
+.CartList {
+    height: 500px;
+    overflow-y: auto;
+}
+
+.Item {
+    padding-top: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.Amount {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Image {
+    width: 48px;
+    height: 60px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}

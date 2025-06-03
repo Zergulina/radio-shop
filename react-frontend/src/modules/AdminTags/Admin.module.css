@@ -145,8 +145,15 @@ Table th {
     gap: 30px;
 }
 
+.SortParameters {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 .TableControllersLeft {
     display: flex;
+    align-items: center;
     gap: 30px
 }
 

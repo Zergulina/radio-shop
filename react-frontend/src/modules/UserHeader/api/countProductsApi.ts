@@ -3,12 +3,12 @@ import type { AxiosResponse } from "axios";
 
 export const countProducts = (
     setProductCount: (count: number) => void,
-    minPrice?: number,
-    maxPrice?: number,
-    minRating?: number,
-    maxRating?: number,
-    name?: string,
-    tag?: string,
+    minPrice: number | null = null,
+    maxPrice: number | null = null,
+    minRating: number | null = null,
+    maxRating: number | null = null,
+    name: string | null = null,
+    tag: string | null = null,
 ) => {
     let queryString = "/api/products/count?";
     queryString += minPrice != null ? `&MinPrice=${minPrice}` : "";

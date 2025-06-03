@@ -18,7 +18,7 @@ namespace CartService.BLL.Mappers
                 Name = model.Name,
                 Description = model.Description,
                 Price = model.Price,
-                Rating = (byte)(model.RatingAmount > 0 ? model.TotalRating / model.RatingAmount : 0),
+                Rating = model.RatingAmount > 0 ? model.TotalRating / model.RatingAmount : 0,
                 OrderAmount = model.OrderAmount,
                 Tags = model.Tags.Select(x => x.ToDto()).ToList(),
                 ImageId = model.ImageId,

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CatalogService.DAL\CatalogService.DAL.csproj" />
+    <ProjectReference Include="..\RabbitMQContracts\RabbitMQContracts.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -25,6 +26,7 @@
     <PackageReference Include="MassTransit" Version="8.4.0" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.2" />
+	  <PackageReference Include="RabbitMQContracts" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

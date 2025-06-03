@@ -74,7 +74,7 @@ const Table: React.FC<TableProps> = ({
                 <div className={classes.TableController}>
                     <button className={classes.FilterButton} onClick={filterCallback}><BsFilter className={classes.FilterIcon} />Фильтры</button>
                     <div>
-                        <label>
+                        <label className={classes.SortParameters}>
                             Сортировка
                             <Listbox id={useId()} selectOptions={[{ value: "", name: "Без сортировки" }, ...sortOptions]} setValue={(value: string) => setQuery({ ...query, sortBy: value })} value={query.sortBy} />
                             <Listbox id={useId()} selectOptions={[{ value: "false", name: "По возрастанию" }, { value: "true", name: "По убыванию" }]} setValue={(value: string) => setQuery({ ...query, isDescending: value == "true" })} />

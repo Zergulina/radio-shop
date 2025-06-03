@@ -1,0 +1,19 @@
+syntax = "proto3";
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "OrderService";
+
+package Radioshop;
+
+message OrderGrpcRequest {
+	string userId = 1;
+	int32 productId = 2;
+}
+
+message CheckDoesUserBoughtProductGrpcResponse {
+	bool check = 1;
+}
+
+service OrderGrpc {
+	rpc CheckDoesUserBoughtProduct (OrderGrpcRequest) returns (CheckDoesUserBoughtProductGrpcResponse);
+}

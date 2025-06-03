@@ -16,6 +16,7 @@ namespace CartService.BLL.Interfaces
         Task<List<CartDto>> GetAllByProductIdAsync(int? pageNumber, int? pageSize, int productId);
         Task<int> CountByProductIdAsync(int productId);
         Task<CartDto> CreateAsync(CartDto cart);
+        Task<CartDto> UpdateAsync(string userId, int productId, CartDto cart);
         Task DeleteAsync(string userId, int productId);
         Task<bool> ExistsAsync(string userId, int productId);
     }

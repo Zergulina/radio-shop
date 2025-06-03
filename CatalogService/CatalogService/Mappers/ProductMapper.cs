@@ -48,6 +48,8 @@ public static class ProductMapper
             Name = productDto.Name,
             Description = productDto.Description,
             Price = productDto.Price,
+            OrderAmount = productDto.OrderAmount,
+            Rating = productDto.Rating,
             Tags = productDto.Tags.Select(x => x.ToResponseDto()).ToList(),
             ImageId = productDto.ImageId,
         };

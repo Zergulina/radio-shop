@@ -12,9 +12,9 @@ namespace CartService.DAL.Models
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; } = 0;
-        public long TotalRating { get; set; } = 0;
-        public long RatingAmount { get; set; } = 0;
-        public long OrderAmount { get; set; } = 0;
+        public ulong TotalRating { get; set; } = 0;
+        public ulong RatingAmount { get; set; } = 0;
+        public ulong OrderAmount { get; set; } = 0;
         public string? ImageId { get; set; } = null;
         public List<Tag> Tags { get; set; } = new();
     }

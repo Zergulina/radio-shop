@@ -9,13 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.DAL", "OrderSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.BLL", "OrderService.BLL\OrderService.BLL.csproj", "{9306104A-7ABF-40FA-8CB5-35F6BD4610E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQContracts", "RabbitMQContracts\RabbitMQContracts.csproj", "{3C3EC33F-B101-4BEF-81A3-ED2189AB34F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8D205AE0-389D-4AC5-A2F2-45E4ADDF060B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +29,12 @@ Global
 		{9306104A-7ABF-40FA-8CB5-35F6BD4610E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9306104A-7ABF-40FA-8CB5-35F6BD4610E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9306104A-7ABF-40FA-8CB5-35F6BD4610E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C3EC33F-B101-4BEF-81A3-ED2189AB34F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C3EC33F-B101-4BEF-81A3-ED2189AB34F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C3EC33F-B101-4BEF-81A3-ED2189AB34F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C3EC33F-B101-4BEF-81A3-ED2189AB34F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

@@ -5,4 +5,13 @@
     justify-content: center;
     gap:30px;
     padding: 20px 30px;
+    min-height: calc(100vh - 250px);
+}
+
+.ButtonWrapper {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

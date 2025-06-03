@@ -17,6 +17,26 @@ namespace OrderService.DAL.Repositories
         {
             _context = context;
         }
+
+        public async Task<Order?> AcceptAsync(int id)
+        {
+            var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == id);
+            if (order == null)
+            {
+                return null;
+            }
+
+            order.IsAccepted = true;
+            await _context.SaveChangesAsync();
+
+            return order;
+        }
+
+        public async Task<bool> CheckDoesUserBoughtProduct(string userId, int productId)
+        {
+            return await _context.Orders.Where(x => x.UserId.Equals(userId) && x.IsAccepted).SelectMany(x => x.Units).AnyAsync(x => x.ProductId == productId);
+        }
+
         public async Task<int> CountAsync(
             string? userId = null, 
             DateTime? startOrderedAt = null, 
@@ -77,18 +97,16 @@ namespace OrderService.DAL.Repositories
 
         public async Task<Order> CreateAsync(Order order)
         {
-            foreach (var orderUnit in order.Units) {
-                await _context.OrderUnits.AddAsync(orderUnit);
-            }
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
-            return order;
+
+            return await _context.Orders.Include(x => x.Units).ThenInclude(x => x.Product).FirstAsync(x => x.Id == order.Id);
         }
 
         public async Task<Order?> DeleteAsync(int id)
         {
-            var existingOrder = await _context.Orders.FirstOrDefaultAsync(x => x.Id == id);
-            if (existingOrder != null)
+            var existingOrder = await _context.Orders.Include(x => x.Units).FirstOrDefaultAsync(x => x.Id == id);
+            if (existingOrder == null)
             {
                 return null;
             }

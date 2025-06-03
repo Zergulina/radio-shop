@@ -15,6 +15,7 @@ namespace CartService.DAL.Interfaces
         Task<List<Cart>> GetAllByProductIdAsync(int? pageNumber, int? pageSize, int productId);
         Task<int> CountByProductIdAsync(int productId);
         Task<Cart> CreateAsync(Cart cart);
+        Task<Cart?> UpdateAsync(string userId, int productId, Cart cart);
         Task<bool> DeleteAsync(string userId, int productId);
         Task<bool> ExistsAsync(string userId, int productId);
     }

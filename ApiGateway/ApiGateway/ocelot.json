@@ -59,6 +59,72 @@
             "Priority": 0
         },
         {
+            "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "order-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/orders/swagger/v1/swagger.json",
+            "UpstreamHttpMethod": [
+                "GET"
+            ],
+            "Priority": 0
+        },
+        {
+            "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "rating-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/rating/swagger/v1/swagger.json",
+            "UpstreamHttpMethod": [
+                "GET"
+            ],
+            "Priority": 0
+        },
+        {
+            "DownstreamPathTemplate": "/api/products/{productId}/rating/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "rating-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/api/products/{productId}/rating/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+            ],
+            "SwaggerKey": "rating"
+        },
+        {
+            "DownstreamPathTemplate": "/api/users/{userId}/product-rating/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "rating-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/api/users/{userId}/product-rating/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+            ],
+            "SwaggerKey": "rating"
+        },
+        {
             "DownstreamPathTemplate": "/api/products/images/{everything}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
@@ -180,6 +246,42 @@
                 "DELETE"
             ],
             "SwaggerKey": "catalog"
+        },
+        {
+            "DownstreamPathTemplate": "/api/orders/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "order-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/api/orders/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+            ],
+            "SwaggerKey": "orders"
+        },
+        {
+            "DownstreamPathTemplate": "/api/my-orders/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "order-service",
+                    "Port": 8000
+                }
+            ],
+            "UpstreamPathTemplate": "/api/my-orders/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+            ],
+            "SwaggerKey": "orders"
         },
         {
             "DownstreamPathTemplate": "/{everything}",

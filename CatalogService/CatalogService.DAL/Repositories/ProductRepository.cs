@@ -94,7 +94,7 @@ internal class ProductRepository : IProductRepository
             if (name != null)
             {
                 products = products.Where(x => x.Name.ToUpper().Contains(name.ToUpper()));
-        }
+            }
             if (tag != null)
             {
                 products = products.Where(x => x.Tags.Select(x => x.Name).Any(tagName => tag.Contains(tagName)));
@@ -108,7 +108,7 @@ internal class ProductRepository : IProductRepository
                 }
                 else if (string.Equals(sortBy, "rating", StringComparison.OrdinalIgnoreCase))
                 {
-                    products = isDescending ? products.OrderByDescending(x => (x.RatingAmount > 0 ? x.TotalRating / x.RatingAmount : 0)) : products.OrderBy(x => x.TotalRating / x.RatingAmount);
+                    products = isDescending ? products.OrderByDescending(x => (x.RatingAmount > 0 ? x.TotalRating / x.RatingAmount : 0)) : products.OrderBy(x => (x.RatingAmount > 0 ? x.TotalRating / x.RatingAmount : 0));
                 }
                 else if (string.Equals(sortBy, "name", StringComparison.OrdinalIgnoreCase))
                 {
@@ -139,7 +139,7 @@ internal class ProductRepository : IProductRepository
             await _context.SaveChangesAsync();
             return existingProduct;
         }
-        public async Task<Product?> AddRating(int id, byte rating)
+        public async Task<Product?> AddRatingAsync(int id, byte rating)
         {
             var existingProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
             if (existingProduct == null)
@@ -150,10 +150,12 @@ internal class ProductRepository : IProductRepository
             existingProduct.TotalRating += rating;
             existingProduct.RatingAmount++;
 
+            await _context.SaveChangesAsync();
+
             return existingProduct;
         }
 
-        public async Task<Product?> RemoveRating(int id, byte rating)
+        public async Task<Product?> RemoveRatingAsync(int id, byte rating)
         {
             var existingProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
             if (existingProduct == null)
@@ -164,10 +166,12 @@ internal class ProductRepository : IProductRepository
             existingProduct.TotalRating -= rating;
             existingProduct.RatingAmount--;
 
+            await _context.SaveChangesAsync();
+
             return existingProduct;
         }
 
-        public async Task<Product?> IncreaseOrderAmountAsync(int id)
+        public async Task<Product?> AddOrderAmountAsync(int id, ulong orderAmount)
         {
             var existingProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
             if (existingProduct == null)
@@ -175,11 +179,11 @@ internal class ProductRepository : IProductRepository
                 return null;
             }
 
-            existingProduct.OrderAmount++;
-
+            existingProduct.OrderAmount+= orderAmount;
+            await _context.SaveChangesAsync();
             return existingProduct;
         }
-        public async Task<Product?> DecreaseOrderAmountAsync(int id)
+        public async Task<Product?> RemoveOrderAmountAsync(int id, ulong orderAmount)
         {
             var existingProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
             if (existingProduct == null)
@@ -187,8 +191,8 @@ internal class ProductRepository : IProductRepository
                 return null;
             }
 
-            existingProduct.OrderAmount--;
-
+            existingProduct.OrderAmount -= orderAmount;
+            await _context.SaveChangesAsync();
             return existingProduct;
         }
     }

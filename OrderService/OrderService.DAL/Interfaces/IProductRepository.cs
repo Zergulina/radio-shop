@@ -9,5 +9,6 @@ namespace OrderService.DAL.Interfaces
     public interface IProductRepository
     {
         Task<bool> ExistsAsync(int id);
+        Task<List<int>> ExistsListAsync(List<int> ids);
     }
 }

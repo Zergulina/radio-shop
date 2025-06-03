@@ -1,5 +1,6 @@
 import Rating from "../../components/Rating/Rating";
 import Tag from "../../components/Tag/Tag";
+import { useCart } from "../../store/CartContext";
 import type { Product } from "../../types/api";
 import AccentButton from "../../UI/buttons/AccentButton/AccentButton";
 import classes from "./ProductCard.module.css"
@@ -10,6 +11,7 @@ interface ProductCartProps {
 }
 
 const ProductCard = ({ product, className }: ProductCartProps) => {
+    const {addItem} = useCart();
     return (
         <div className={`${classes.ProductCard} ${className}`}>
             <div style={{ backgroundImage: `url(api/products/images/${product.imageId})` }} className={classes.Image} />
@@ -23,7 +25,7 @@ const ProductCard = ({ product, className }: ProductCartProps) => {
                 {product.tags.map(tag => <Tag tag={tag}/>)}
             </div>
             <span className={classes.Price}>{product.price} ₽</span>
-            <AccentButton className={classes.CartButton}>В корзину</AccentButton>
+            <AccentButton className={classes.CartButton} onClick={() => addItem(product)}>В корзину</AccentButton>
         </div>
     );
 };

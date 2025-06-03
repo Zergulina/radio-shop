@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrderService.DAL.Interfaces
 {
-    internal interface IOrderRepository
+    public interface IOrderRepository
     {
        Task<Order> CreateAsync(Order order);
        Task<Order?> DeleteAsync(int id);
@@ -41,6 +41,7 @@ namespace OrderService.DAL.Interfaces
             bool? isAccepted = null
         );
         Task<bool> ExistsAsync(int id);
-
+        Task<Order?> AcceptAsync(int id);
+        Task<bool> CheckDoesUserBoughtProduct(string userId, int productId);
     }
 }

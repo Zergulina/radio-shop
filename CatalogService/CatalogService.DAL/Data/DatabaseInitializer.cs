@@ -51,6 +51,18 @@ namespace CatalogService.DAL.Data
 
                 await command.ExecuteNonQueryAsync(cancellationToken);
             }
+            {
+                await using var command = connection.CreateCommand();
+                command.CommandText = $@"SELECT * FROM pg_create_logical_replication_slot('my_slot_2', 'pgoutput');";
+
+                await command.ExecuteNonQueryAsync(cancellationToken);
+            }
+            {
+                await using var command = connection.CreateCommand();
+                command.CommandText = $@"SELECT * FROM pg_create_logical_replication_slot('my_slot_3', 'pgoutput');";
+
+                await command.ExecuteNonQueryAsync(cancellationToken);
+            }
         }
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

@@ -30,4 +30,8 @@ public interface IProductRepository
     Task<Product?> UpdateAsync(int id, Product product);
     Task<Product?> DeleteAsync(int id);
     Task<bool> ExistsAsync(int id);
+    Task<Product?> AddRatingAsync(int id, byte rating);
+    Task<Product?> RemoveRatingAsync(int id, byte rating);
+    Task<Product?> AddOrderAmountAsync(int id, ulong orderAmount);
+    Task<Product?> RemoveOrderAmountAsync(int id, ulong orderAmount);
 }

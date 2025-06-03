@@ -20,5 +20,11 @@ namespace OrderService.DAL.Repositories
         {
             return await _context.Products.AnyAsync(x => x.Id == id);
         }
+
+        public async Task<List<int>> ExistsListAsync(List<int> ids)
+        {
+            var existIds = await _context.Products.Where(x => ids.Contains(x.Id)).Select(x => x.Id).ToListAsync();
+            return ids.Except(existIds).ToList();
+        }
     }
 }

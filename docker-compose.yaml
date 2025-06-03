@@ -16,6 +16,18 @@ services:
         - catalog-service
         - cart-service
         - image-service
+        - order-service
+        - rating-service
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: ${RABBITMQ_HOST}
+    expose:
+      - ${RABBITMQ_PORT}
+    ports:
+      - "${RABBITMQ_WEB_PORT}:${RABBITMQ_WEB_PORT}"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
   auth-service:
     build: ./AuthService
     container_name: ${AUTH_HOST}
@@ -61,15 +73,20 @@ services:
     environment:
       - ConnectionStrings__DefaultConnection=Host=${CATALOG_DB_HOST};Port=${CATALOG_DB_PORT};Database=${CATALOG_DB_NAME};Username=${CATALOG_DB_USER};Password=${CATALOG_DB_PASSWORD}
       - ConnectionStrings__ProductImageServiceGrpcConnection=http://${IMAGE_HOST}:${IMAGE_PORT_HTTP_2}
+      - ConnectionStrings__RabbitMQ=rabbitmq://${RABBITMQ_HOST}
       - JWT__SigningKey=${JWT_SECRET_KEY}
       - HTTP_PORTS=${CATALOG_PORT}
       - JWT__Issuer=https://localhost:7040
       - JWT__Audience=https://localhost:7040
       - PgPublication__Name=catalog_publication
+      - RabbitMQ__Username=${RABBITMQ_USER}
+      - RabbitMQ__Password=${RABBITMQ_PASSWORD}
     depends_on:
       catalog-db:
         condition: service_healthy
       image-service:
+        condition: service_started
+      rabbitmq:
         condition: service_started
   catalog-db:
     image: postgres:17
@@ -115,10 +132,84 @@ services:
       - POSTGRES_DB=${CART_DB_NAME}
     expose: 
       - ${CART_DB_PORT}
-    ports:
-      - 8765:${CART_DB_PORT}
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${CART_DB_USER} -d ${CART_DB_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - catalog-service
+  order-service:
+    build: ./OrderService
+    container_name: ${ORDER_HOST}
+    expose:
+      - ${ORDER_PORT}
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=${ORDER_DB_HOST};Port=${ORDER_DB_PORT};Database=${ORDER_DB_NAME};Username=${ORDER_DB_USER};Password=${ORDER_DB_PASSWORD}
+      - ConnectionStrings__UserServiceGrpcConnection=http://${AUTH_HOST}:${AUTH_PORT_HTTP_2}
+      - ConnectionStrings__RabbitMQ=rabbitmq://${RABBITMQ_HOST}
+      - JWT__SigningKey=${JWT_SECRET_KEY}
+      - HTTP_PORTS=${ORDER_PORT}
+      - HTTP_2_PORTS=${ORDER_PORT_HTTP_2}
+      - JWT__Issuer=https://localhost:7040
+      - JWT__Audience=https://localhost:7040
+      - PgSubscription__Name=catalog_subscription
+      - PgSubscription__Connection=dbname=${CATALOG_DB_NAME} host=${CATALOG_DB_HOST} user=${CATALOG_DB_USER} password=${CATALOG_DB_PASSWORD}
+      - PgSubscription__PublicationName=catalog_publication
+      - RabbitMQ__Username=${RABBITMQ_USER}
+      - RabbitMQ__Password=${RABBITMQ_PASSWORD}
+    depends_on:
+      order-db:
+        condition: service_healthy
+  order-db:
+    image: postgres:17
+    container_name: ${ORDER_DB_HOST}
+    environment:
+      - POSTGRES_USER=${ORDER_DB_USER}
+      - POSTGRES_PASSWORD=${ORDER_DB_PASSWORD}
+      - POSTGRES_DB=${ORDER_DB_NAME}
+    expose: 
+      - ${ORDER_DB_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${ORDER_DB_USER} -d ${ORDER_DB_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - catalog-service
+  rating-service:
+    build: ./RatingService
+    container_name: ${RATING_HOST}
+    expose:
+      - ${RATING_PORT}
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=${RATING_DB_HOST};Port=${RATING_DB_PORT};Database=${RATING_DB_NAME};Username=${RATING_DB_USER};Password=${RATING_DB_PASSWORD}
+      - ConnectionStrings__UserServiceGrpcConnection=http://${AUTH_HOST}:${AUTH_PORT_HTTP_2}
+      - ConnectionStrings__OrderServiceGrpcConnection=http://${ORDER_HOST}:${ORDER_PORT_HTTP_2}
+      - ConnectionStrings__RabbitMQ=rabbitmq://${RABBITMQ_HOST}
+      - JWT__SigningKey=${JWT_SECRET_KEY}
+      - HTTP_PORTS=${RATING_PORT}
+      - JWT__Issuer=https://localhost:7040
+      - JWT__Audience=https://localhost:7040
+      - PgSubscription__Name=catalog_subscription
+      - PgSubscription__Connection=dbname=${CATALOG_DB_NAME} host=${CATALOG_DB_HOST} user=${CATALOG_DB_USER} password=${CATALOG_DB_PASSWORD}
+      - PgSubscription__PublicationName=catalog_publication
+      - RabbitMQ__Username=${RABBITMQ_USER}
+      - RabbitMQ__Password=${RABBITMQ_PASSWORD}
+    depends_on:
+      rating-db:
+        condition: service_healthy
+  rating-db:
+    image: postgres:17
+    container_name: ${RATING_DB_HOST}
+    environment:
+      - POSTGRES_USER=${RATING_DB_USER}
+      - POSTGRES_PASSWORD=${RATING_DB_PASSWORD}
+      - POSTGRES_DB=${RATING_DB_NAME}
+    expose: 
+      - ${RATING_DB_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${RATING_DB_USER} -d ${RATING_DB_NAME}" ]
       interval: 5s
       timeout: 5s
       retries: 5

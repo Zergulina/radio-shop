@@ -9,13 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.DAL", "Catal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.BLL", "CatalogService.BLL\CatalogService.BLL.csproj", "{709C7CFC-3C26-40A8-91D7-02F466EEC9A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQContracts", "RabbitMQContracts\RabbitMQContracts.csproj", "{85419E75-12B3-4E8E-BD50-96A21F5C9CCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{53AB1575-3504-48FC-9B09-02AB0346AFCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +29,12 @@ Global
 		{709C7CFC-3C26-40A8-91D7-02F466EEC9A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{709C7CFC-3C26-40A8-91D7-02F466EEC9A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{709C7CFC-3C26-40A8-91D7-02F466EEC9A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85419E75-12B3-4E8E-BD50-96A21F5C9CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85419E75-12B3-4E8E-BD50-96A21F5C9CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85419E75-12B3-4E8E-BD50-96A21F5C9CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85419E75-12B3-4E8E-BD50-96A21F5C9CCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

@@ -63,7 +63,7 @@ namespace CartService.BLL.Services
                     throw new AlreadyExistsException("Cart unit already exists");
                 }
                 var newCart = await _cartRepository.CreateAsync(cart.ToModel());
-                return newCart.ToCartDto(user);
+                return newCart.ToProductCartDto();
             }
             catch (Exception ex)
             {
@@ -138,6 +138,16 @@ namespace CartService.BLL.Services
                 throw new NotFoundException("Cart unit not found");
             }
             return cart.ToCartDto(user);
+        }
+
+        public async Task<CartDto> UpdateAsync(string userId, int productId, CartDto cart)
+        {
+            var existingCart = await _cartRepository.UpdateAsync(userId, productId, cart.ToModel());
+            if (existingCart == null)
+            {
+                throw new NotFoundException("Cart unit not found");
+            }
+            return existingCart.ToProductCartDto();
         }
     }
 }
